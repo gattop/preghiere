@@ -318,131 +318,30 @@
     </div>
 
     <script>
-        // Definizione dei misteri base
-        const misteriBase = {
-            gaudiosi: {
-                nome: "Misteri Gaudiosi",
-                lista: [
-                    {
-                        titolo: "L'Annunciazione dell'Angelo a Maria",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La visita di Maria SS. a S. Elisabetta",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La nascita di Gesù",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La presentazione di Gesù al Tempio",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "Il ritrovamento di Gesù nel Tempio",
-                        descrizione: "[Descrizione]"
-                    }
-                ]
-            },
-            dolorosi: {
-                nome: "Misteri Dolorosi",
-                lista: [
-                    {
-                        titolo: "L'Agonia di Gesù nel Getsemani",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La flagellazione di Gesù",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'incoronazione di Spine",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "Il viaggio di Gesù al Calvario",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La morte di Gesù in croce",
-                        descrizione: "[Descrizione]"
-                    }
-                ]
-            },
-            gloriosi: {
-                nome: "Misteri Gloriosi",
-                lista: [
-                    {
-                        titolo: "La Resurrezione di Gesù",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'Ascensione di Gesù al Cielo",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La discesa dello Spirito Santo",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'Assunzione di Maria in Cielo",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'incoronazione di Maria",
-                        descrizione: "[Descrizione]"
-                    }
-                ]
-            },
-            luminosi: {
-                nome: "Misteri Luminosi",
-                lista: [
-                    {
-                        titolo: "Il Battesimo di Gesù nel Giordano",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "Il miracolo di Gesù alle nozze di Cana",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'annuncio del Regno di Dio",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "La Trasfigurazione di Gesù",
-                        descrizione: "[Descrizione]"
-                    },
-                    {
-                        titolo: "L'istituzione dell'Eucaristia",
-                        descrizione: "[Descrizione]"
-                    }
-                ]
-            }
+        // Dati caricati da JSON
+        let misteriBase = {};
+        let preghiere = {};
+
+        // Giorno della settimana → chiave del mistero
+        const misteriPerGiornoKeys = {
+            1: 'gaudiosi',  // Lunedì - Misteri Gaudiosi
+            2: 'dolorosi',  // Martedì - Misteri Dolorosi
+            3: 'gloriosi',  // Mercoledì - Misteri Gloriosi
+            4: 'luminosi',  // Giovedì - Misteri Luminosi
+            5: 'dolorosi',  // Venerdì - Misteri Dolorosi
+            6: 'gaudiosi',  // Sabato - Misteri Gaudiosi
+            0: 'gloriosi'   // Domenica - Misteri Gloriosi
         };
 
-        // Mappatura dei giorni della settimana ai misteri
-        const misteriPerGiorno = {
-            1: misteriBase.gaudiosi,  // Lunedì - Misteri Gaudiosi
-            2: misteriBase.dolorosi,  // Martedì - Misteri Dolorosi
-            3: misteriBase.gloriosi,  // Mercoledì - Misteri Gloriosi
-            4: misteriBase.luminosi,  // Giovedì - Misteri Luminosi
-            5: misteriBase.dolorosi,  // Venerdì - Misteri Dolorosi
-            6: misteriBase.gaudiosi,  // Sabato - Misteri Gaudiosi
-            0: misteriBase.gloriosi   // Domenica - Misteri Gloriosi
-        };
-
-        // Preghiere del Rosario
-        const preghiere = {
-            segnoDelCroce: "Nel nome del Padre, del Figlio e dello Spirito Santo. Amen.",
-            credoApostolico: "Io credo in Dio, Padre onnipotente, Creatore del cielo e della terra. E in Gesù Cristo, Suo unico Figlio, nostro Signore, il quale fu concepito di Spirito Santo, nacque da Maria Vergine, patì sotto Ponzio Pilato, fu crocifisso, morì e fu sepolto; discese agli inferi; il terzo giorno risuscitò da morte; salì al cielo, siede alla destra di Dio Padre onnipotente: di là verrà a giudicare i vivi e i morti. Credo nello Spirito Santo, la santa Chiesa cattolica, la comunione dei santi, la remissione dei peccati, la risurrezione della carne, la vita eterna. Amen.",
-            padreNostro: "Padre nostro che sei nei cieli, sia santificato il tuo nome, venga il tuo regno, sia fatta la tua volontà come in cielo così in terra. Dacci oggi il nostro pane quotidiano, e rimetti a noi i nostri debiti come noi li rimettiamo ai nostri debitori, e non ci indurre in tentazione, ma liberaci dal male. Amen.",
-            aveMaria: "Ave, o Maria, piena di grazia, il Signore è con te. Tu sei benedetta fra le donne e benedetto è il frutto del tuo seno, Gesù. Santa Maria, Madre di Dio, prega per noi peccatori, adesso e nell'ora della nostra morte. Amen.",
-            gloria: "Gloria al Padre e al Figlio e allo Spirito Santo. Come era nel principio, e ora e sempre nei secoli dei secoli. Amen.",
-            preghieraFatima: "Gesù mio, perdona le nostre colpe, preservaci dal fuoco dell'inferno, porta in cielo tutte le anime, specialmente le più bisognose della tua misericordia.",
-            salveRegina: "Salve, Regina, Madre di misericordia, vita, dolcezza e speranza nostra, salve. A te ricorriamo, esuli figli di Eva; a te sospiriamo, gementi e piangenti in questa valle di lacrime. Orsù dunque, avvocata nostra, rivolgi a noi gli occhi tuoi misericordiosi. E mostraci, dopo questo esilio, Gesù, il frutto benedetto del tuo seno. O clemente, o pia, o dolce Vergine Maria."
-        };
+        // Carica preghiere e misteri dal JSON
+        async function caricaDati() {
+            const [preghiereRes, misteriRes] = await Promise.all([
+                fetch('data/preghiere.json'),
+                fetch('data/misteri.json')
+            ]);
+            preghiere = await preghiereRes.json();
+            misteriBase = await misteriRes.json();
+        }
 
         // Stato del rosario
         let rosarioStato = {
@@ -470,7 +369,7 @@
         function inizializzaRosario() {
             // Ottieni il giorno della settimana (0 = domenica, 1 = lunedì, ecc.)
             const oggi = new Date().getDay();
-            rosarioStato.misteriDelGiorno = misteriPerGiorno[oggi];
+            rosarioStato.misteriDelGiorno = misteriBase[misteriPerGiornoKeys[oggi]];
             
             // Imposta il titolo dei misteri
             misteriTitle.textContent = rosarioStato.misteriDelGiorno.nome;
@@ -691,7 +590,8 @@
         });
 
         // Inizializza il rosario al caricamento della pagina
-        window.onload = function() {
+        window.onload = async function() {
+            await caricaDati();
             inizializzaRosario();
         };
     </script>
