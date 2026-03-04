@@ -1,37 +1,47 @@
 ---
 layout: default
 ---
-{% if page.parent_url %}
-<nav>
-  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
-</nav>
+{% comment %}
+  Ricava i dati della categoria da _data/categorie.yml tramite page.category_id.
+  Genera automaticamente l'elenco delle preghiere dal collection site.preghiere.
+  Mostra anche le sotto-categorie (entry con parent == page.category_id).
+{% endcomment %}
+{% assign cat_data = site.data.categorie | where: "id", page.category_id | first %}
+{% assign back_url = "/" %}
+{% if cat_data.parent %}
+  {% assign back_url = "/categorie/" | append: cat_data.parent | append: "/" %}
 {% endif %}
 
-<h1>{{ page.title }}</h1>
+<nav>
+  <a class="nav-back" href="{{ back_url }}">&#8592; Indietro</a>
+</nav>
 
-{% if page.sottotitolo %}
-<p class="descrizione">{{ page.sottotitolo }}</p>
+<h1>{{ cat_data.titolo }}</h1>
+
+{% if cat_data.descrizione %}
+<p class="descrizione">{{ cat_data.descrizione }}</p>
 {% endif %}
 
 {{ content }}
 
-{% comment %}Pagine auto-scoperte: ogni file con parent_url uguale all'URL di questa pagina appare qui{% endcomment %}
-{% assign sub_pages = site.pages | where: "parent_url", page.url | sort: "order" %}
-{% for p in sub_pages %}
+{% comment %}Preghiere della categoria, ordinate per order{% endcomment %}
+{% assign sub_preghiere = site.preghiere | where: "category", page.category_id | sort: "order" %}
+{% for p in sub_preghiere %}
 <div class="divConSeparatori">
   <p class="elenco"><a href="{{ p.url }}">{{ p.title }}</a></p>
 </div>
 {% endfor %}
 
-{% comment %}Voci manuali extra (link esterni, ecc.){% endcomment %}
-{% for voce in page.voci %}
+{% comment %}Sotto-categorie{% endcomment %}
+{% assign all_sub = site.data.categorie | sort: "order" %}
+{% for sub in all_sub %}
+  {% if sub.parent == page.category_id %}
 <div class="divConSeparatori">
-  <p class="elenco"><a href="{{ voce.url }}"{% if voce.esterno %} target="_blank" rel="noopener"{% endif %}>{{ voce.label }}</a></p>
+  <p class="elenco"><a href="/categorie/{{ sub.id }}/">{{ sub.titolo }}</a></p>
 </div>
+  {% endif %}
 {% endfor %}
 
-{% if page.parent_url %}
 <div class="nav-links">
-  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
+  <a class="nav-back" href="{{ back_url }}">&#8592; Indietro</a>
 </div>
-{% endif %}

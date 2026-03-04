@@ -1,0 +1,24 @@
+---
+title: "Triduo a Sant'Emidio — Giorno 1"
+category: triduo-sant-emidio
+order: 1
+---
+
+*Nel nome del Padre, del Figlio e dello Spirito Santo. Amen.*
+
+O ammirabile ed eroico S. Emidio, nostro celeste patrono e protettore, atleta e messaggero del Signore, tu che ti sei nutrito della Parola di Dio e ti sei fatto apostolo di pace e di speranza, e hai portato il lieto annunzio ai poveri, e hai parlato a tutti con un linguaggio di amore e di bontà, rendici partecipi, te ne preghiamo, di una scintilla di quell'ardente carità che hai avuto tu, e fa che anche noi possiamo avere la forza dinamica di annunciare il Vangelo e proclamare senza vergogna il glorioso e Santo Nome di Gesù Cristo. Aiutaci ad amare Dio con tutto il nostro cuore e a servirlo con carità e amore nei nostri fratelli, affinché praticando il nostro servizio cristiano, possiamo indirizzare i cuori verso Dio, il solo ed unico supremo bene.
+
+Amen.
+
+*Padre, Ave e Gloria.*
+
+Sant'Emidio, vescovo e martire,
+    *prega per noi.*
+
+Sant Emidio Protettore
+
+    sul tuo popolo devoto
+
+    col tuo sguardo di Pastore
+
+    veglia sempre in tutte l'ore.

@@ -6,32 +6,46 @@ layout: default
 <p class="descrizione">{{ page.descrizione }}</p>
 {% endif %}
 
-{% comment %}Voci non-esterni fissate in cima (es. Rosario){% endcomment %}
-{% assign voci_top = page.voci | where_exp: "v", "v.esterno != true" %}
-{% for voce in voci_top %}
+{% comment %}Santo Rosario — voce speciale fissa{% endcomment %}
 <div class="divConSeparatori">
-  <p class="elenco">
-    <a href="{{ voce.url }}">{% if voce.bold %}<b>{{ voce.label }}</b>{% else %}{{ voce.label }}{% endif %}</a>
-  </p>
+  <p class="elenco"><a href="/rosario/"><b>Santo Rosario</b></a></p>
 </div>
+
+{% comment %}
+  Scorre _data/categorie.yml ordinato per order.
+  Le entry con parent: vengono saltate (sono sotto-categorie).
+  tipo: singola  + gruppo: santi  → /preghiere/santi/<id>/
+  tipo: singola  (non santi)      → /preghiere/<id>/
+  tipo: lista                     → /categorie/<id>/
+{% endcomment %}
+{% assign sorted_cats = site.data.categorie | sort: "order" %}
+{% for cat in sorted_cats %}
+  {% unless cat.parent %}
+    {% if cat.tipo == "singola" %}
+      {% if cat.gruppo == "santi" %}
+<div class="divConSeparatori">
+  <p class="elenco"><a href="/preghiere/santi/{{ cat.id }}/">{{ cat.titolo }}</a></p>
+</div>
+      {% else %}
+<div class="divConSeparatori">
+  <p class="elenco"><a href="/preghiere/{{ cat.id }}/">{{ cat.titolo }}</a></p>
+</div>
+      {% endif %}
+    {% else %}
+<div class="divConSeparatori">
+  <p class="elenco"><a href="/categorie/{{ cat.id }}/">{{ cat.titolo }}</a></p>
+</div>
+    {% endif %}
+  {% endunless %}
 {% endfor %}
 
-{% comment %}Pagine auto-scoperte: ogni pagina con parent_url: / appare qui{% endcomment %}
-{% assign auto_pages = site.pages | where: "parent_url", "/" | sort: "order" %}
-{% for p in auto_pages %}
+{% comment %}Link esterni{% endcomment %}
+{% for voce in page.voci %}
+  {% if voce.esterno %}
 <div class="divConSeparatori">
-  <p class="elenco"><a href="{{ p.url }}">{{ p.title }}</a></p>
+  <p class="elenco"><a href="{{ voce.url }}" target="_blank" rel="noopener">{{ voce.label }}</a></p>
 </div>
-{% endfor %}
-
-{% comment %}Link esterni in fondo{% endcomment %}
-{% assign voci_esterni = page.voci | where_exp: "v", "v.esterno == true" %}
-{% for voce in voci_esterni %}
-<div class="divConSeparatori">
-  <p class="elenco">
-    <a href="{{ voce.url }}" target="_blank" rel="noopener">{{ voce.label }}</a>
-  </p>
-</div>
+  {% endif %}
 {% endfor %}
 
 {{ content }}

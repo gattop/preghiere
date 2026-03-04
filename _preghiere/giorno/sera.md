@@ -1,0 +1,36 @@
+---
+title: "Preghiera della sera"
+category: giorno
+---
+
+## Atto di adorazione
+
+Ti adoro, mio Dio e ti amo con tutto il cuore. Ti ringrazio di avermi creato, fatto cristiano e conservato in questo giorno. Perdonami il male oggi commesso e accetta a tua gloria il bene che ho compiuto. Ti affido in questa notte la mia anima e il mio corpo. Accetta i battiti del mio cuore come atti di amore per te. Allontana da me le insidie del demonio. I tuoi santi Angeli mi custodiscano nella pace. La tua grazia sia sempre con me e con tutti i miei cari. Agli agonizzanti che in questa notte morranno dona il Paradiso. Le anime dei defunti, per la tua misericordia, riposino in pace. Amen.
+
+*Padre, Ave e Gloria*
+
+## Al Sacro cuore di Gesù
+
+O Cuore di Gesú, a te raccomando in questa notte l'anima e il corpo, affinché dolcemente in te riposino. E poiché durante il sonno non potró lodare il mio Dio, tu degnati di farlo per me, in modo che quanti saranno i battiti del mio cuore in questa notte, tante siano le lodi che tu darai alla SS. Trinità. Amen.
+
+## A Maria Santissima
+
+Ti saluto, o Maria Immacolata, Figlia dell'eterno Padre, e ti prego di darmi la purità nei pensieri.
+Ti saluto, o Maria Immacolata, Madre dell'eterno Figlio, e ti prego di darmi la purità di parole.
+Ti saluto, o Maria Immacolata, Sposa dello Spirito Santo, e ti prego di darmi la purità nelle opere.
+
+## Esame di coscienza
+
+Illumina, o Signore, il mio cuore e la mia mente, perché possa conoscere bene i miei peccati e detestarli.
+
+*Atto di dolore*
+
+## Invocazioni
+
+Gesú, Giuseppe e Maria, vi dono il cuore e l'anima mia!
+Gesú, Giuseppe e Maria, assistetemi nell'ultima agonia!
+Gesú, Giuseppe e Maria, spiri in pace con voi l'anima mia!
+
+## L'eterno riposo
+
+L'eterno riposo dona loro, o Signore, e splenda ad essi la luce perpetua. Riposino in pace. Amen.

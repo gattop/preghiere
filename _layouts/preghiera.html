@@ -1,8 +1,22 @@
 ---
 layout: default
 ---
+{% comment %}
+  Ricava il link di ritorno dalla categoria della preghiera (campo category).
+  Se la preghiera non ha categoria, torna alla home.
+  Se la categoria è una sotto-categoria, il back link punta alla sotto-categoria (es. Triduo).
+{% endcomment %}
+{% if page.category %}
+  {% assign cat_data = site.data.categorie | where: "id", page.category | first %}
+  {% assign back_url  = "/categorie/" | append: page.category | append: "/" %}
+  {% assign back_label = cat_data.titolo %}
+{% else %}
+  {% assign back_url  = "/" %}
+  {% assign back_label = "Home" %}
+{% endif %}
+
 <nav>
-  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
+  <a class="nav-back" href="{{ back_url }}">&#8592; {{ back_label }}</a>
 </nav>
 
 <h1>{{ page.title }}</h1>
@@ -12,5 +26,5 @@ layout: default
 </div>
 
 <div class="nav-links">
-  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
+  <a class="nav-back" href="{{ back_url }}">&#8592; {{ back_label }}</a>
 </div>
