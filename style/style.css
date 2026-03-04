@@ -80,17 +80,28 @@ footer a:link{
     text-decoration: underline;
 }
 
-/*
 @media (prefers-color-scheme: dark) {
-    :root {        
+    :root {
         --background: rgb(51, 51, 51);
         --color: rgba(250, 235, 215, 0.8);
     }
 }
-    */
 
 @media (min-width: 750px) {
-    body{
+    body {
         margin: auto;
     }
+}
+
+@media print {
+    a { text-decoration: none; }
+    a[href^="/"]:not([href*="."]) { display: none; }
+    body {
+        font-size: 12pt;
+        max-width: 100%;
+        color: black;
+        background: white;
+    }
+    h1, h2 { page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
 }

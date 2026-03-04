@@ -10,10 +10,11 @@ markdown_ext: "markdown,mkdown,mkdn,mkd,md,html"
 
 kramdown:
   input: GFM
-  hard_wrap: false
+  hard_wrap: true
 
 plugins:
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 exclude:
   - Gemfile
@@ -22,5 +23,3 @@ exclude:
   - vendor
   - .sass-cache
   - .jekyll-cache
-  - migrate_to_jekyll.ps1
-  - cleanup_jekyll.ps1
