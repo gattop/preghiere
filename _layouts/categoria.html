@@ -2,7 +2,9 @@
 layout: default
 ---
 {% if page.parent_url %}
-<p><a href="{{ page.parent_url }}">&#8592; Indietro</a></p>
+<nav>
+  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
+</nav>
 {% endif %}
 
 <h1>{{ page.title }}</h1>
@@ -13,12 +15,23 @@ layout: default
 
 {{ content }}
 
+{% comment %}Pagine auto-scoperte: ogni file con parent_url uguale all'URL di questa pagina appare qui{% endcomment %}
+{% assign sub_pages = site.pages | where: "parent_url", page.url | sort: "order" %}
+{% for p in sub_pages %}
+<div class="divConSeparatori">
+  <p class="elenco"><a href="{{ p.url }}">{{ p.title }}</a></p>
+</div>
+{% endfor %}
+
+{% comment %}Voci manuali extra (link esterni, ecc.){% endcomment %}
 {% for voce in page.voci %}
 <div class="divConSeparatori">
-  <p class="elenco"><a href="{{ voce.url }}">{{ voce.label }}</a></p>
+  <p class="elenco"><a href="{{ voce.url }}"{% if voce.esterno %} target="_blank" rel="noopener"{% endif %}>{{ voce.label }}</a></p>
 </div>
 {% endfor %}
 
 {% if page.parent_url %}
-<p><a href="{{ page.parent_url }}">&#8592;</a></p>
+<div class="nav-links">
+  <a class="nav-back" href="{{ page.parent_url }}">&#8592; Indietro</a>
+</div>
 {% endif %}

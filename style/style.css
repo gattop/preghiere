@@ -1,113 +1,332 @@
-/*font google: "Allura", "Playwrite IT Moderna", "Newsreader" */
+/* Font Google: "Allura", "Playwrite IT Moderna", "Newsreader" */
 /* Font caricati tramite <link> nel layout, non @import, per evitare FOUT */
 
+/* ── Variabili ────────────────────────────────────── */
 :root {
-    --font: "Newsreader", sans-serif;
-    --background: antiquewhite;
-    --color: black;
+    --font:         "Newsreader", Georgia, serif;
+    --font-heading: "Allura", "Playwrite IT Moderna", cursive;
+
+    --bg:           #fdf6ec;
+    --surface:      #f5ead8;
+    --color:        #2a1a0e;
+    --color-muted:  #7a5c42;
+    --accent:       #830f24;
+    --accent-light: #a8314a;
+    --border:       rgba(42, 26, 14, 0.18);
+
+    --radius:       6px;
+    --transition:   0.18s ease;
+    --max-width:    660px;
 }
 
-body{
-    background-color: var(--background);
+/* ── Reset & base ─────────────────────────────────── */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg);
     color: var(--color);
     font-family: var(--font);
     font-weight: 350;
+    font-size: 19px;
+    line-height: 1.8;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    /*text-align: center;*/
-    font-size: 22px;
-    margin-right: 7%;
-    margin-left: 7%;
-    max-width: 650px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 3rem;
+    max-width: var(--max-width);
+    transition: background-color var(--transition), color var(--transition);
 }
 
-h1, h2, h3, h4, h5, h6{
-    font-family: "Allura", "Playwrite IT Moderna", "Newsreader", sans-serif;
+/* ── Intestazioni ─────────────────────────────────── */
+h1 {
+    font-family: var(--font-heading);
     font-weight: 400;
-    font-size: 50px;
+    font-size: clamp(2.4rem, 8vw, 3.4rem);
+    line-height: 1.15;
     text-align: center;
+    color: var(--accent);
+    margin: 1.2rem 0 0.4rem;
+    letter-spacing: 0.01em;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    text-align: center;
+    color: var(--accent);
+    margin: 1.4rem 0 0.5rem;
+}
+
+h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--accent);
+    margin: 1rem 0 0.4rem;
+}
+
+/* ── Separatore ornamentale sotto h1 ──────────────── */
+h1::after {
+    content: "✦";
+    display: block;
+    font-family: serif;
+    font-size: 1rem;
+    color: var(--accent-light);
+    opacity: 0.55;
+    margin-top: 0.35rem;
+    letter-spacing: 0.4em;
+}
+
+/* ── Testo ────────────────────────────────────────── */
+p {
+    margin: 0.6rem 0;
+    line-height: 1.85;
 }
 
 i {
-    font-family: "Playwrite IT Moderna", "Newsreader", sans-serif;
+    font-family: "Playwrite IT Moderna", "Newsreader", serif;
     font-weight: 200;
     font-style: italic;
-    font-size: 20px;
+    font-size: 0.95em;
 }
 
+/* ── Link ─────────────────────────────────────────── */
 a {
     text-decoration: none;
     color: var(--color);
+    transition: color var(--transition);
 }
 
-p { 
-    line-height: 30px
+a:hover {
+    color: var(--accent);
 }
 
-.elenco{
-    padding-top: 0.3rem;
-    padding-bottom: 0.3rem;
+/* ── Navigazione (Indietro / Home) ────────────────── */
+.nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-family: "Playwrite IT Moderna", var(--font);
+    color: var(--color-muted);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 1.4rem;
+    transition: color var(--transition), border-color var(--transition), background var(--transition);
 }
 
-.divConSeparatori{
-    border-bottom: 1px solid var(--color);
+.nav-back:hover {
+    color: var(--accent);
+    border-color: var(--accent-light);
+    background: var(--surface);
 }
 
-.descrizione{
-    font-size:large;
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* ── Elenco voci (home e categorie) ──────────────── */
+.lista-voci {
+    list-style: none;
+    padding: 0;
+    margin: 1.2rem 0;
+}
+
+.lista-voci li {
+    border-bottom: 1px solid var(--border);
+}
+
+.lista-voci li:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.lista-voci li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.4rem;
+    font-size: 1.05rem;
+    color: var(--color);
+    transition: color var(--transition), padding-left var(--transition), background var(--transition);
+    border-radius: var(--radius);
+}
+
+.lista-voci li a::after {
+    content: "›";
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    opacity: 0.6;
+    transition: opacity var(--transition), color var(--transition);
+    flex-shrink: 0;
+}
+
+.lista-voci li a:hover {
+    color: var(--accent);
+    padding-left: 0.6rem;
+    background: var(--surface);
+}
+
+.lista-voci li a:hover::after {
+    color: var(--accent);
+    opacity: 1;
+}
+
+/* Compatibilità con vecchie classi (divConSeparatori/elenco) */
+.divConSeparatori {
+    border-bottom: 1px solid var(--border);
+}
+
+.divConSeparatori:first-of-type {
+    border-top: 1px solid var(--border);
+}
+
+.elenco {
+    padding: 0;
+    margin: 0;
+}
+
+.elenco a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0.4rem;
+    font-size: 1.05rem;
+    transition: color var(--transition), padding-left var(--transition), background var(--transition);
+    border-radius: var(--radius);
+}
+
+.elenco a::after {
+    content: "›";
+    font-size: 1.3rem;
+    color: var(--color-muted);
+    opacity: 0.6;
+    transition: opacity var(--transition), color var(--transition);
+}
+
+.elenco a:hover {
+    color: var(--accent);
+    padding-left: 0.6rem;
+    background: var(--surface);
+}
+
+.elenco a:hover::after {
+    color: var(--accent);
+    opacity: 1;
+}
+
+/* ── Descrizione / sottotitolo ────────────────────── */
+.descrizione {
+    font-size: 1rem;
     text-align: center;
+    color: var(--color-muted);
+    font-style: italic;
+    margin: 0 0 1.4rem;
+    line-height: 1.6;
 }
 
-.n_versetto{
-    color:#830f24;
+/* ── Numero versetto ──────────────────────────────── */
+.n_versetto {
+    color: var(--accent);
+    font-size: 0.78em;
+    vertical-align: super;
+    font-family: var(--font);
+    font-style: normal;
 }
 
-td {
-    border-bottom: 1px solid #ddd;
+/* ── Tabelle ──────────────────────────────────────── */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+}
+
+td, th {
+    border-bottom: 1px solid var(--border);
     text-align: center;
-    padding-left: 0.7rem;
-    padding-right: 0.7rem;
-    padding-bottom: 0.7rem;
-    padding-top: 0.7rem;
+    padding: 0.6rem 0.7rem;
 }
 
-footer{
-    font-size:smaller;
+th {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    color: var(--accent);
+    font-weight: 400;
+    border-bottom: 2px solid var(--border);
+}
+
+/* ── Footer ───────────────────────────────────────── */
+footer {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
     text-align: center;
+    color: var(--color-muted);
+    line-height: 1.6;
 }
 
-footer a:link{
+footer a {
+    color: var(--color-muted);
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
+footer a:hover {
+    color: var(--accent);
+}
+
+/* ── Dark mode ────────────────────────────────────── */
 @media (prefers-color-scheme: dark) {
     :root {
-        --background: rgb(51, 51, 51);
-        --color: rgba(250, 235, 215, 0.8);
+        --bg:           #2a2018;
+        --surface:      #332b1e;
+        --color:        #f0e2ca;
+        --color-muted:  #b89878;
+        --accent:       #d4607a;
+        --accent-light: #c45070;
+        --border:       rgba(240, 226, 202, 0.15);
     }
+
     a:link, a:visited {
-        color: rgba(250, 235, 215, 0.7);
+        color: var(--color);
     }
+
     a:hover {
-        color: rgba(250, 235, 215, 1);
+        color: var(--accent);
     }
 }
 
-@media (min-width: 750px) {
+/* ── Responsive ───────────────────────────────────── */
+@media (min-width: 720px) {
     body {
-        margin: auto;
+        padding: 2.5rem 2rem 4rem;
     }
 }
 
+/* ── Stampa ───────────────────────────────────────── */
 @media print {
     a { text-decoration: none; }
-    a[href^="/"]:not([href*="."]) { display: none; }
+    .nav-back, .nav-links, nav { display: none; }
     body {
-        font-size: 12pt;
+        font-size: 11pt;
         max-width: 100%;
         color: black;
         background: white;
+        padding: 0;
     }
-    h1, h2 { page-break-after: avoid; }
+    h1 { color: black; font-size: 24pt; }
+    h1::after { display: none; }
+    h2, h3 { color: black; page-break-after: avoid; }
     p { orphans: 3; widows: 3; }
 }
