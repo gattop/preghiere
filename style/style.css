@@ -1,5 +1,5 @@
 /*font google: "Allura", "Playwrite IT Moderna", "Newsreader" */
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playwrite+IT+Moderna:wght@100..400&display=swap');
+/* Font caricati tramite <link> nel layout, non @import, per evitare FOUT */
 
 :root {
     --font: "Newsreader", sans-serif;

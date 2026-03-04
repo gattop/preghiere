@@ -1,0 +1,26 @@
+title: Preghiere
+description: Raccolta personale di preghiere cattoliche.
+url: "https://preghiamo.eu"
+baseurl: ""
+lang: it
+
+markdown: kramdown
+# Permette a Jekyll di trattare i file .html con front matter come Markdown
+markdown_ext: "markdown,mkdown,mkdn,mkd,md,html"
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - migrate_to_jekyll.ps1
+  - cleanup_jekyll.ps1

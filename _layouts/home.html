@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<h1>{{ page.heading | default: page.title }}</h1>
+<div class="descrizione">{{ page.descrizione }}</div>
+
+{% for voce in page.voci %}
+<div class="divConSeparatori">
+  <p class="elenco">
+    <a href="{{ voce.url }}"{% if voce.esterno %} rel="noopener"{% endif %}>{% if voce.bold %}<b>{{ voce.label }}</b>{% else %}{{ voce.label }}{% endif %}</a>
+  </p>
+</div>
+{% endfor %}
+
+{{ content }}
