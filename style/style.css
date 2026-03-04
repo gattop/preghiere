@@ -85,6 +85,12 @@ footer a:link{
         --background: rgb(51, 51, 51);
         --color: rgba(250, 235, 215, 0.8);
     }
+    a:link, a:visited {
+        color: rgba(250, 235, 215, 0.7);
+    }
+    a:hover {
+        color: rgba(250, 235, 215, 1);
+    }
 }
 
 @media (min-width: 750px) {
