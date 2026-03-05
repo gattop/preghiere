@@ -1,0 +1,15 @@
+[project]
+id = "preghiamo"
+
+[functions.gospel-proxy]
+verify_jwt = false
+
+[functions.delete-account]
+verify_jwt = true
+
+[functions.send-daily-gospel]
+verify_jwt = false
+# Cron schedule: ogni ora  →  entro ~1 ora dall'aggiornamento del feed RSS
+# Le mail vengono inviate solo quando Vatican News pubblica un articolo nuovo.
+# Formato: "minuto ora giorno mese giorno_settimana"
+schedule = "0 * * * *"
