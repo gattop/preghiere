@@ -1,12 +1,8 @@
 {
-  "rewrites": [
-    { "source": "/api/rss/:path*", "destination": "https://www.vaticannews.va/:path*" },
-    { "source": "/robots.txt", "destination": "/robots.txt" },
-    { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
-    { "source": "/manifest.webmanifest", "destination": "/manifest.webmanifest" },
-    { "source": "/sw.js", "destination": "/sw.js" },
-    { "source": "/workbox-:hash.js", "destination": "/workbox-:hash.js" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/api/rss/(.*)", "dest": "https://www.vaticannews.va/$1" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "headers": [
     {
