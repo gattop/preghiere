@@ -78,8 +78,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <footer className="site-footer">
         <p>
-          Raccolta personale di preghiere cattoliche · Suggerisci:{' '}
-          <a href="mailto:preghiere@tmso.it">preghiere@tmso.it</a>
+          Raccolta di preghiere cattoliche by Tommaso Martarelli
         </p>
       </footer>
     </>

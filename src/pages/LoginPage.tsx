@@ -97,11 +97,11 @@ export function LoginPage() {
       <p style={{ textAlign: 'center', marginTop: '1.2rem', fontSize: '.9em', color: 'var(--text-muted)' }}>
         {mode === 'login' ? (
           <>Non hai un account?{' '}
-            <button className="nav-link" style={{ color: 'var(--accent)', cursor: 'pointer', padding: 0 }} onClick={() => setMode('register')}>Registrati</button>
+            <button type="button" style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontFamily: 'var(--font-body)', fontSize: 'inherit', fontWeight: 700, padding: 0, textDecoration: 'underline', textDecorationColor: 'rgba(123,108,246,.35)' }} onClick={() => setMode('register')}>Registrati</button>
           </>
         ) : (
           <>Hai già un account?{' '}
-            <button className="nav-link" style={{ color: 'var(--accent)', cursor: 'pointer', padding: 0 }} onClick={() => setMode('login')}>Accedi</button>
+            <button type="button" style={{ background: 'none', border: 'none', color: 'var(--accent)', cursor: 'pointer', fontFamily: 'var(--font-body)', fontSize: 'inherit', fontWeight: 700, padding: 0, textDecoration: 'underline', textDecorationColor: 'rgba(123,108,246,.35)' }} onClick={() => setMode('login')}>Accedi</button>
           </>
         )}
       </p>
