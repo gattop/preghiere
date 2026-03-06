@@ -1,5 +1,5 @@
 -- =====================================================
--- 001_initial.sql — Preghiamo database schema
+-- 001_initial.sql — Spada dello Spirito database schema
 -- Run via: supabase db push  or  supabase migration up
 -- =====================================================
 

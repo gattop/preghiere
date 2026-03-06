@@ -21,7 +21,7 @@ serve(async (req) => {
 
   try {
     const res = await fetch(RSS_URL, {
-      headers: { 'User-Agent': 'preghiamo-app/1.0' },
+      headers: { 'User-Agent': 'spada-dello-spirito/1.0' },
     })
 
     if (!res.ok) {

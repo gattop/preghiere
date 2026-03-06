@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /accedi
+Disallow: /profilo
+Disallow: /proposta
+Disallow: /preferiti
+Disallow: /admin
+
+Sitemap: https://spadadellospirito.org/sitemap.xml

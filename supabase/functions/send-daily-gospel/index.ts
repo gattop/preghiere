@@ -23,7 +23,7 @@ const RSS_URL =
 
 async function fetchGospel(): Promise<{ title: string; description: string; link: string } | null> {
   try {
-    const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'preghiamo-app/1.0' } })
+    const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'spada-dello-spirito/1.0' } })
     if (!res.ok) return null
     const xml = await res.text()
     const itemMatch = xml.match(/<item>([\s\S]*?)<\/item>/)
@@ -118,7 +118,7 @@ serve(async (_req) => {
         <div style="line-height: 1.8; font-size: 1rem;">${gospel.description}</div>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 1.5rem 0;" />
         <p style="font-size: 0.85rem; color: #888;">
-          Caro ${name}, hai ricevuto questa email perché hai attivato il Vangelo del giorno su Preghiamo.<br />
+          Caro ${name}, hai ricevuto questa email perché hai attivato il Vangelo del giorno su Spada dello Spirito.<br />
           <a href="${gospel.link}" style="color: #830f24;">Leggi sul sito Vatican News</a>
         </p>
       </div>
@@ -145,7 +145,7 @@ const RSS_URL =
 
 async function fetchGospel(): Promise<{ title: string; description: string; link: string } | null> {
   try {
-    const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'preghiamo-app/1.0' } })
+    const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'spada-dello-spirito/1.0' } })
     if (!res.ok) return null
     const xml = await res.text()
     const itemMatch = xml.match(/<item>([\s\S]*?)<\/item>/)
@@ -236,7 +236,7 @@ serve(async (_req) => {
         </div>
         <hr style="border: none; border-top: 1px solid #ddd; margin: 1.5rem 0;" />
         <p style="font-size: 0.85rem; color: #888;">
-          Caro ${name}, hai ricevuto questa email perché hai attivato il Vangelo del giorno su Preghiamo.<br />
+          Caro ${name}, hai ricevuto questa email perché hai attivato il Vangelo del giorno su Spada dello Spirito.<br />
           <a href="${gospel.link}" style="color: #830f24;">Leggi sul sito Vatican News</a>
         </p>
       </div>

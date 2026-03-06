@@ -1,8 +1,8 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
-import sitemap from 'vite-plugin-sitemap'
 import path from 'path'
+import fs from 'node:fs'
 
 // ── Build the route list from prayer data ─────────────────────────────────────
 // We import the compiled TS at config time via tsx/ts-node (Vite supports it).
@@ -28,19 +28,39 @@ const dynamicRoutes = [
   ...collectRoutes(prayerTree),
 ]
 
+const HOSTNAME = 'https://spadadellospirito.org'
+const EXCLUDE = new Set(['/accedi', '/profilo', '/proposta', '/preferiti', '/admin'])
+
+function sitemapPlugin(outDir: string): Plugin {
+  return {
+    name: 'generate-sitemap',
+    apply: 'build',
+    closeBundle() {
+      const routes = ['/', ...dynamicRoutes].filter(r => !EXCLUDE.has(r))
+      const today = new Date().toISOString().split('T')[0]
+      const priority = (r: string) =>
+        r === '/' ? '1.0' : r === '/vangelo' || r === '/rosario' || r === '/bibbia' ? '0.9' : '0.7'
+
+      const xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        ...routes.map(r =>
+          `  <url>\n    <loc>${HOSTNAME}${r}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>${priority(r)}</priority>\n  </url>`
+        ),
+        '</urlset>',
+      ].join('\n')
+
+      fs.mkdirSync(outDir, { recursive: true })
+      fs.writeFileSync(path.join(outDir, 'sitemap.xml'), xml, 'utf-8')
+      console.log(`\x1b[32m✓ sitemap.xml generato (${routes.length} URL)\x1b[0m`)
+    },
+  }
+}
+
 export default defineConfig({
   plugins: [
     react(),
-    sitemap({
-      hostname: 'https://spadadellospirito.org',
-      dynamicRoutes,
-      exclude: ['/accedi', '/profilo', '/proposta', '/preferiti', '/admin'],
-      changefreq: 'monthly',
-      priority: 0.7,
-      // Override priority for key pages
-      outDir: 'dist',
-      generateRobotsTxt: true,
-    }),
+    sitemapPlugin('dist'),
     VitePWA({
       registerType: 'autoUpdate',
       // Include static assets that should be pre-cached

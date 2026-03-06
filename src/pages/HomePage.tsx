@@ -6,10 +6,10 @@ import { useSeo } from '../hooks/useSeo'
 
 const PALETTES = [
   { icon: '🙏' },
-  { icon: '✝️' },
   { icon: '🕊️' },
-  { icon: '📿' },
-  { icon: '⭐' },
+  { icon: '❤️‍🔥' },
+  { icon: '🛐' },
+  { icon: '✝️' },
   { icon: '☩'  },
   { icon: '♥'  },
   { icon: '🌟' },
