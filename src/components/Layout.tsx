@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { user, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -41,6 +41,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 <>
                   <Link to="/preferiti" className={`nav-link ${isActive('/preferiti')}`} onClick={close}>Preferiti</Link>
                   <Link to="/proposta" className={`nav-link ${isActive('/proposta')}`} onClick={close}>Proponi</Link>
+                  {profile?.is_admin && (
+                    <Link to="/admin" className={`nav-link ${isActive('/admin')}`} onClick={close}>Admin</Link>
+                  )}
                 </>
               )}
               {user ? (
