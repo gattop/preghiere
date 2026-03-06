@@ -43,7 +43,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       // Include static assets that should be pre-cached
-      includeAssets: ['favicon/logo.png'],
+      includeAssets: ['favicon/logo.png', 'favicon/icon-192.png', 'favicon/icon-512.png'],
       manifest: {
         name: 'Spada dello Spirito',
         short_name: 'Spada',
@@ -57,15 +57,22 @@ export default defineConfig({
         orientation: 'portrait',
         icons: [
           {
-            src: '/favicon/logo.png',
+            src: '/favicon/icon-192.png',
             sizes: '192x192',
             type: 'image/png',
+            purpose: 'any',
           },
           {
-            src: '/favicon/logo.png',
+            src: '/favicon/icon-512.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any maskable',
+            purpose: 'any',
+          },
+          {
+            src: '/favicon/icon-512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable',
           },
         ],
       },
