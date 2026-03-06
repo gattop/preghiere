@@ -1,7 +1,11 @@
 import { Link, useParams } from 'react-router-dom'
+import { useMemo } from 'react'
 import { findFolder } from '../data/prayers'
 import { BackButton } from '../components/BackButton'
+import { useSeo } from '../hooks/useSeo'
 import type { Folder, Prayer } from '../types'
+
+const BASE_URL = 'https://spadadellospirito.org'
 
 function PrayerItem({ prayer }: { prayer: Prayer }) {
   return (
@@ -39,6 +43,42 @@ export function FolderPage() {
   const folderId = params['*']?.split('/').at(-1) ?? params.id ?? ''
   const folder = findFolder(folderId)
 
+  // Build parent path for sub-folder links
+  const currentPath = `/cartella/${params['*'] ?? folderId}`
+
+  const description = useMemo(
+    () => folder?.description ?? `Preghiere nella categoria "${folder?.title ?? 'cartella'}" su Spada dello Spirito.`,
+    [folder],
+  )
+
+  const jsonLd = useMemo(() => folder ? {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: folder.title,
+        description,
+        url: `${BASE_URL}${currentPath}`,
+        inLanguage: 'it',
+        isPartOf: { '@type': 'WebSite', '@id': `${BASE_URL}/#website`, name: 'Spada dello Spirito', url: BASE_URL },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: folder.title, item: `${BASE_URL}${currentPath}` },
+        ],
+      },
+    ],
+  } : null, [folder, description, currentPath])
+
+  useSeo({
+    title: folder ? `${folder.title} — Preghiere` : 'Cartella',
+    description,
+    canonical: folder ? `${BASE_URL}${currentPath}` : undefined,
+    jsonLd,
+  })
+
   if (!folder) {
     return (
       <div>
@@ -49,16 +89,16 @@ export function FolderPage() {
   }
 
   // Build parent path for sub-folder links
-  const currentPath = `/cartella/${params['*'] ?? folderId}`
+  const currentPathForLinks = `/cartella/${params['*'] ?? folderId}`
 
   return (
     <>
       <BackButton />
-      <h2>{folder.title}</h2>
+      <h1>{folder.title}</h1>
       {folder.description && <p className="prayer-description">{folder.description}</p>}
 
       {(folder.subfolders ?? []).map(sub => (
-        <SubfolderItem key={sub.id} folder={sub} parentPath={currentPath} />
+        <SubfolderItem key={sub.id} folder={sub} parentPath={currentPathForLinks} />
       ))}
 
       {(folder.prayers ?? []).map(prayer => (

@@ -2,6 +2,25 @@ import { useState, useCallback, useEffect } from 'react'
 import { misteri, misteriPerGiorno, buildRosarioSequence } from '../data/rosario'
 import type { RosarioStep } from '../data/rosario'
 import { Link } from 'react-router-dom'
+import { useSeo } from '../hooks/useSeo'
+
+const ROSARIO_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://spadadellospirito.org/rosario#webpage',
+  name: 'Santo Rosario — Spada dello Spirito',
+  description: 'Prega il Santo Rosario guidato giorno per giorno con i misteri del giorno: Gaudiosi, Dolorosi, Gloriosi e della Luce.',
+  url: 'https://spadadellospirito.org/rosario',
+  inLanguage: 'it',
+  isPartOf: { '@type': 'WebSite', '@id': 'https://spadadellospirito.org/#website' },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://spadadellospirito.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Santo Rosario', item: 'https://spadadellospirito.org/rosario' },
+    ],
+  },
+}
 
 interface RosarioState {
   started: boolean
@@ -16,6 +35,13 @@ export function RosarioPage() {
 
   const [seq] = useState<RosarioStep[]>(() => buildRosarioSequence(dayOfWeek))
   const [state, setState] = useState<RosarioState>({ started: false, step: 0, misteroCorrente: -1 })
+
+  useSeo({
+    title: 'Santo Rosario',
+    description: 'Prega il Santo Rosario guidato giorno per giorno con i misteri del giorno: Gaudiosi, Dolorosi, Gloriosi e della Luce.',
+    canonical: 'https://spadadellospirito.org/rosario',
+    jsonLd: ROSARIO_JSONLD,
+  })
 
   const current = state.step < seq.length ? seq[state.step] : null
 

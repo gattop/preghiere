@@ -1,6 +1,8 @@
 ﻿import { Link } from 'react-router-dom'
+import { useMemo } from 'react'
 import { prayerTree } from '../data/prayers'
 import type { Folder } from '../types'
+import { useSeo } from '../hooks/useSeo'
 
 const PALETTES = [
   { icon: '🙏' },
@@ -38,6 +40,27 @@ function HomeCard({ folder, index }: { folder: Folder; index: number }) {
 }
 
 export function HomePage() {
+  const jsonLd = useMemo(() => ({
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Categorie di preghiere cattoliche',
+    description: 'Raccolta di preghiere cattoliche organizzate per categoria su Spada dello Spirito.',
+    url: 'https://spadadellospirito.org/',
+    itemListElement: prayerTree.map((f, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: f.title,
+      url: `https://spadadellospirito.org/cartella/${f.id}`,
+    })),
+  }), [])
+
+  useSeo({
+    title: 'Preghiere Cattoliche',
+    description: 'Raccolta di preghiere cattoliche: rosario giornaliero, vangelo del giorno, preghiere tradizionali e ai santi. Prega con la Tradizione della Chiesa.',
+    canonical: 'https://spadadellospirito.org/',
+    jsonLd,
+  })
+
   return (
     <>
       {/* ── Hero banner ── */}

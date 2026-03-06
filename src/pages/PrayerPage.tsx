@@ -1,14 +1,59 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { prayerMap } from '../data/prayers'
 import { BackButton } from '../components/BackButton'
 import { FavoriteButton } from '../components/FavoriteButton'
 import { PrayerBlockRenderer } from '../components/PrayerBlockRenderer'
+import { useSeo } from '../hooks/useSeo'
+import type { Prayer } from '../types'
+
+const BASE_URL = 'https://spadadellospirito.org'
+
+function getPrayerDesc(prayer: Prayer): string {
+  if (prayer.description) return prayer.description.slice(0, 160)
+  if (prayer.subtitle) return `${prayer.title} — ${prayer.subtitle}`
+  const tb = prayer.blocks.find(b => b.type === 'paragraph' || b.type === 'italic')
+  if (tb && 'text' in tb) return (tb as { text: string }).text.slice(0, 160)
+  return `Testo della preghiera cattolica "${prayer.title}" su Spada dello Spirito.`
+}
 
 export function PrayerPage() {
   const { id } = useParams<{ id: string }>()
   const prayer = id ? prayerMap.get(id) : undefined
   const [readMode, setReadMode] = useState(false)
+
+  const description = useMemo(() => prayer ? getPrayerDesc(prayer) : undefined, [prayer])
+
+  const jsonLd = useMemo(() => prayer ? {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        '@id': `${BASE_URL}/preghiera/${prayer.id}#article`,
+        headline: prayer.title,
+        description,
+        inLanguage: 'it',
+        url: `${BASE_URL}/preghiera/${prayer.id}`,
+        isPartOf: { '@type': 'WebSite', '@id': `${BASE_URL}/#website`, name: 'Spada dello Spirito', url: BASE_URL },
+        publisher: { '@type': 'Organization', name: 'Spada dello Spirito', url: BASE_URL },
+        genre: 'preghiera cattolica',
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${BASE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: prayer.title, item: `${BASE_URL}/preghiera/${prayer.id}` },
+        ],
+      },
+    ],
+  } : null, [prayer, description])
+
+  useSeo({
+    title: prayer?.title ?? 'Preghiera',
+    description,
+    canonical: prayer ? `${BASE_URL}/preghiera/${prayer.id}` : undefined,
+    jsonLd,
+  })
 
   if (!prayer) {
     return (

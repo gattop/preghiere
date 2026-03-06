@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import DOMPurify from 'dompurify'
 import { fetchGospel } from '../lib/gospelService'
 import type { GospelItem } from '../types'
+import { useSeo } from '../hooks/useSeo'
 
 export function VangeloPage() {
   const [gospel, setGospel] = useState<GospelItem | null>(null)
@@ -14,6 +15,37 @@ export function VangeloPage() {
       .catch(e => setError((e as Error).message))
       .finally(() => setLoading(false))
   }, [])
+
+  const seoTitle = gospel ? `Vangelo — ${gospel.title}` : 'Vangelo del giorno'
+  const seoDesc = gospel
+    ? `${gospel.title}. Vangelo del giorno dalla liturgia della Chiesa Cattolica.`
+    : 'Leggi il Vangelo del giorno dalla liturgia della Chiesa Cattolica.'
+
+  const vangJsonLd = useMemo(() => gospel ? {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: gospel.title,
+    description: `Vangelo del giorno — ${gospel.pubDate}`,
+    url: 'https://spadadellospirito.org/vangelo',
+    inLanguage: 'it',
+    datePublished: gospel.pubDate,
+    isPartOf: { '@type': 'WebSite', '@id': 'https://spadadellospirito.org/#website' },
+    publisher: { '@type': 'Organization', name: 'Spada dello Spirito', url: 'https://spadadellospirito.org' },
+    breadcrumb: {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://spadadellospirito.org/' },
+        { '@type': 'ListItem', position: 2, name: 'Vangelo del giorno', item: 'https://spadadellospirito.org/vangelo' },
+      ],
+    },
+  } : null, [gospel])
+
+  useSeo({
+    title: seoTitle,
+    description: seoDesc,
+    canonical: 'https://spadadellospirito.org/vangelo',
+    jsonLd: vangJsonLd,
+  })
 
   if (loading) return <div className="spinner" />
 
@@ -39,7 +71,7 @@ export function VangeloPage() {
 
   return (
     <>
-      <h2>Vangelo del giorno</h2>
+      <h1>Vangelo del giorno</h1>
       <p className="gospel-date">{gospel.pubDate}</p>
       <p style={{ textAlign: 'center', fontFamily: 'var(--font-display)', fontSize: '1em', color: 'var(--accent)', marginBottom: '1.5rem', letterSpacing: '.04em' }}>
         {gospel.title}

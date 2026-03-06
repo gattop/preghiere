@@ -39,6 +39,7 @@ export default defineConfig({
       priority: 0.7,
       // Override priority for key pages
       outDir: 'dist',
+      generateRobotsTxt: true,
     }),
     VitePWA({
       registerType: 'autoUpdate',
