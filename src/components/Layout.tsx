@@ -18,7 +18,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <>
       <header className="site-header">
         <div className="site-header-inner">
-          <Link to="/" className="logo" onClick={close}>Preghiamo.eu</Link>
+          <Link to="/" className="logo" onClick={close}>Spada dello Spirito</Link>
 
           <button
             type="button"

@@ -1,11 +1,45 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import sitemap from 'vite-plugin-sitemap'
 import path from 'path'
+
+// ── Build the route list from prayer data ─────────────────────────────────────
+// We import the compiled TS at config time via tsx/ts-node (Vite supports it).
+import type { Folder } from './src/types'
+import { prayerTree } from './src/data/prayers'
+
+function collectRoutes(folders: Folder[], prefix = '/cartella'): string[] {
+  const routes: string[] = []
+  for (const folder of folders) {
+    const folderPath = `${prefix}/${folder.id}`
+    routes.push(folderPath)
+    for (const prayer of folder.prayers ?? []) {
+      routes.push(`/preghiera/${prayer.id}`)
+    }
+    routes.push(...collectRoutes(folder.subfolders ?? [], folderPath))
+  }
+  return routes
+}
+
+const dynamicRoutes = [
+  '/rosario',
+  '/vangelo',
+  ...collectRoutes(prayerTree),
+]
 
 export default defineConfig({
   plugins: [
     react(),
+    sitemap({
+      hostname: 'https://spadadellospirito.org',
+      dynamicRoutes,
+      exclude: ['/accedi', '/profilo', '/proposta', '/preferiti', '/admin'],
+      changefreq: 'monthly',
+      priority: 0.7,
+      // Override priority for key pages
+      outDir: 'dist',
+    }),
     VitePWA({
       registerType: 'autoUpdate',
       // Include static assets that should be pre-cached
@@ -18,8 +52,8 @@ export default defineConfig({
         'favicon/android-chrome-512x512.png',
       ],
       manifest: {
-        name: 'Preghiamo',
-        short_name: 'Preghiamo',
+        name: 'Spada dello Spirito',
+        short_name: 'Spada',
         description: 'Raccolta personale di preghiere cattoliche',
         lang: 'it',
         theme_color: '#830f24',

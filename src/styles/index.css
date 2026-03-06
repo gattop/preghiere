@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playwrite+IT+Moderna:wght@100..400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cinzel:wght@400..900&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 /* ─── Reset & base ─────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
@@ -20,7 +20,9 @@
   --shadow-lg:     0 6px 24px rgba(40,32,26,.12), 0 2px 6px rgba(40,32,26,.08);
   --radius:        7px;
   --font-body:     "Newsreader", Georgia, serif;
-  --font-display:  "Allura", "Playwrite IT Moderna", cursive;
+  --font-display:  "Playfair Display", Georgia, serif;
+  --font-hero:     "Cinzel", "Playfair Display", serif;
+  --font-script:   "Allura", cursive;
   --font-ui:       system-ui, sans-serif;
   --max-w:         680px;
   --spacing:       1.5rem;
@@ -77,16 +79,16 @@ body {
 h1 {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 7vw, 3.2rem);
-  font-weight: 400;
+  font-weight: 700;
   text-align: center;
   margin: var(--spacing) 0 .25rem;
-  line-height: 1.1;
+  line-height: 1.15;
 }
 
 h2 {
   font-family: var(--font-display);
   font-size: clamp(1.6rem, 5vw, 2.2rem);
-  font-weight: 400;
+  font-weight: 700;
   text-align: center;
   margin: var(--spacing) 0 .25rem;
 }
@@ -135,8 +137,8 @@ hr {
 }
 
 .site-header .logo {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-family: var(--font-script);
+  font-size: 1.7rem;
   color: var(--text);
 }
 
@@ -263,7 +265,7 @@ hr {
   font-style: italic;
 }
 
-.block-italic { font-family: "Playwrite IT Moderna", serif; font-weight: 200; font-style: italic; font-size: .95em; margin: .8rem 0; display: block; }
+.block-italic { font-family: var(--font-body); font-weight: 400; font-style: italic; font-size: .95em; margin: .8rem 0; display: block; }
 
 .block-response {
   display: grid;
@@ -505,6 +507,11 @@ hr {
 }
 .site-footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
 .site-footer a:hover { color: var(--accent); }
+
+/* shrink logo on mobile so it fits on one line */
+@media (max-width: 380px) {
+  .site-header .logo { font-size: 1.15rem; }
+}
 
 /* ─── Responsive ───────────────────────────────────────────────────────────── */
 @media (min-width: 600px) {
