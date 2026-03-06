@@ -70,5 +70,4 @@ export interface GospelItem {
   pubDate: string
   link: string
   description: string
-  content: string
 }

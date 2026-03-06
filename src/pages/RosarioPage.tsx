@@ -119,7 +119,7 @@ export function RosarioPage() {
         )}
       </div>
 
-      <p className="rosario-text">{current?.testo}</p>
+      <p key={state.step} className="rosario-text">{current?.testo}</p>
 
       {isAve && (
         <div className="ave-beads">
@@ -137,7 +137,7 @@ export function RosarioPage() {
         </div>
         <p className="rosario-hint">{state.step + 1} / {seq.length}</p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '.6rem', marginTop: '.5rem' }}>
-          <button className="btn btn-ghost" onClick={goBack} style={{ fontSize: '.85rem', padding: '.3rem .8rem' }}>‹ Indietro</button>
+          <button className="btn btn-ghost btn-sm" onClick={goBack}>‹ Indietro</button>
           <span className="rosario-hint" style={{ alignSelf: 'center' }}>tocca ovunque per avanzare</span>
         </div>
       </div>

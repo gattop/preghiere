@@ -43,20 +43,13 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       // Include static assets that should be pre-cached
-      includeAssets: [
-        'favicon/favicon.ico',
-        'favicon/favicon-16x16.png',
-        'favicon/favicon-32x32.png',
-        'favicon/apple-touch-icon.png',
-        'favicon/android-chrome-192x192.png',
-        'favicon/android-chrome-512x512.png',
-      ],
+      includeAssets: ['favicon/logo.png'],
       manifest: {
         name: 'Spada dello Spirito',
         short_name: 'Spada',
         description: 'Raccolta personale di preghiere cattoliche',
         lang: 'it',
-        theme_color: '#830f24',
+        theme_color: '#7B6CF6',
         background_color: '#ffffff',
         display: 'standalone',
         start_url: '/',
@@ -64,27 +57,23 @@ export default defineConfig({
         orientation: 'portrait',
         icons: [
           {
-            src: '/favicon/android-chrome-192x192.png',
+            src: '/favicon/logo.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/favicon/android-chrome-512x512.png',
+            src: '/favicon/logo.png',
             sizes: '512x512',
             type: 'image/png',
-            purpose: 'any',
-          },
-          {
-            src: '/favicon/android-chrome-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable',
+            purpose: 'any maskable',
           },
         ],
       },
       workbox: {
         // Pre-cache all build output (JS, CSS, HTML, images)
         globPatterns: ['**/*.{js,css,html,png,svg,ico,woff,woff2}'],
+        // Exclude large brand images from precache (they're served normally)
+        globIgnores: ['**/banner-*.png', '**/logo_con_testo-*.png', '**/logo-*.png'],
         // Runtime caching for external APIs
         runtimeCaching: [
           {

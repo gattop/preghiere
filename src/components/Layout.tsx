@@ -18,7 +18,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
     <>
       <header className="site-header">
         <div className="site-header-inner">
-          <Link to="/" className="logo" onClick={close}>Spada dello Spirito</Link>
+          <Link to="/" className="logo" onClick={close}>
+            <svg className="logo-cross" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#9B8DF8"/>
+                  <stop offset="100%" stopColor="#5A49D4"/>
+                </linearGradient>
+              </defs>
+              <rect x="39" y="8" width="22" height="104" rx="5" ry="5" fill="url(#lg)"/>
+              <rect x="12" y="30" width="76" height="22" rx="5" ry="5" fill="url(#lg)"/>
+            </svg>
+            <span className="logo-name">Spada dello Spirito</span>
+          </Link>
 
           <button
             type="button"
@@ -37,6 +49,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`} onClick={close}>Home</Link>
               <Link to="/rosario" className={`nav-link ${isActive('/rosario')}`} onClick={close}>Rosario</Link>
               <Link to="/vangelo" className={`nav-link ${isActive('/vangelo')}`} onClick={close}>Vangelo</Link>
+              <Link to="/bibbia" className={`nav-link ${isActive('/bibbia')}`} onClick={close}>Bibbia</Link>
               {user && (
                 <>
                   <Link to="/preferiti" className={`nav-link ${isActive('/preferiti')}`} onClick={close}>Preferiti</Link>
@@ -52,7 +65,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
                   <button type="button" className="nav-link" style={{ cursor: 'pointer' }} onClick={() => { signOut().then(() => { navigate('/'); close() }) }}>Esci</button>
                 </>
               ) : (
-                <Link to="/accedi" className={`nav-link ${isActive('/accedi')}`} onClick={close}>Accedi</Link>
+                <Link to="/accedi" className={`nav-link nav-link-pill ${isActive('/accedi')}`} onClick={close}>Accedi</Link>
               )}
             </div>
           </nav>
@@ -65,7 +78,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
       <footer className="site-footer">
         <p>
-          Raccolta personale di preghiere cattoliche · Suggerisci una preghiera:{' '}
+          Raccolta personale di preghiere cattoliche · Suggerisci:{' '}
           <a href="mailto:preghiere@tmso.it">preghiere@tmso.it</a>
         </p>
       </footer>

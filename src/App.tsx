@@ -13,6 +13,7 @@ const ProfilePage   = lazy(() => import('./pages/ProfilePage').then(m => ({ defa
 const PreferitiPage = lazy(() => import('./pages/PreferitiPage').then(m => ({ default: m.PreferitiPage })))
 const PropostaPage  = lazy(() => import('./pages/PropostaPage').then(m => ({ default: m.PropostaPage })))
 const AdminPage     = lazy(() => import('./pages/AdminPage').then(m => ({ default: m.AdminPage })))
+const BiblePage     = lazy(() => import('./pages/BiblePage').then(m => ({ default: m.BiblePage })))
 
 function LayoutWrapper() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/cartella/*" element={<FolderPage />} />
           <Route path="/preghiera/:id" element={<PrayerPage />} />
           <Route path="/vangelo" element={<VangeloPage />} />
+          <Route path="/bibbia" element={<BiblePage />} />
           <Route path="/accedi" element={<LoginPage />} />
           <Route path="/profilo" element={<ProfilePage />} />
           <Route path="/preferiti" element={<PreferitiPage />} />

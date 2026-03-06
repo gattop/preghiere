@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
@@ -41,12 +41,7 @@ export function PropostaPage() {
     if (!user) navigate('/accedi')
   }, [user, navigate])
 
-  useEffect(() => {
-    if (!user) return
-    loadMyProposals()
-  }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  async function loadMyProposals() {
+  const loadMyProposals = useCallback(async () => {
     setLoadingProposals(true)
     const { data } = await supabase
       .from('prayer_proposals')
@@ -55,7 +50,12 @@ export function PropostaPage() {
       .order('created_at', { ascending: false })
     setMyProposals((data as PrayerProposal[]) ?? [])
     setLoadingProposals(false)
-  }
+  }, [user])
+
+  useEffect(() => {
+    if (!user) return
+    loadMyProposals()
+  }, [user, loadMyProposals])
 
   if (!user) return null
 

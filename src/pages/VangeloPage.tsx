@@ -41,13 +41,13 @@ export function VangeloPage() {
     <>
       <h2>Vangelo del giorno</h2>
       <p className="gospel-date">{gospel.pubDate}</p>
-      <h3 style={{ textAlign: 'center', color: 'var(--accent)', fontFamily: 'var(--font-body)', fontSize: '1.1em' }}>
+      <p style={{ textAlign: 'center', fontFamily: 'var(--font-display)', fontSize: '1em', color: 'var(--accent)', marginBottom: '1.5rem', letterSpacing: '.04em' }}>
         {gospel.title}
-      </h3>
+      </p>
 
       <div
         className="gospel-body prayer-body"
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(gospel.content || gospel.description) }}
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(gospel.description) }}
       />
 
       <div style={{ textAlign: 'center', marginTop: '2rem' }}>

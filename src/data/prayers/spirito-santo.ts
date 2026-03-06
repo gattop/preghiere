@@ -6,8 +6,8 @@ export const spiritoSanto: Folder = {
   title: 'Spirito Santo',
   prayers: [
     {
-      id: 'veni-creator',
-      title: 'Veni Creator (Spirito Santo)',
+      id: 'veni-spirito-santo',
+      title: 'Veni Santo Spirito',
       blocks: [
         v('Vieni, Santo Spirito,', 'manda a noi dal cielo', 'un raggio della tua luce.'),
         v('Vieni, padre dei poveri,', 'vieni; datore dei doni,', 'vieni, luce dei cuori.'),

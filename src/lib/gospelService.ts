@@ -21,7 +21,6 @@ export async function fetchGospel(): Promise<GospelItem | null> {
   return {
     title:       get(item, 'title'),
     description: get(item, 'description'),
-    content:     get(item, 'description'),
     pubDate:     get(item, 'pubDate'),
     link:        get(item, 'link') || get(item, 'guid'),
   }

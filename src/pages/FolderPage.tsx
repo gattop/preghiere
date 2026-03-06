@@ -8,7 +8,9 @@ function PrayerItem({ prayer }: { prayer: Prayer }) {
     <Link to={`/preghiera/${prayer.id}`} style={{ textDecoration: 'none' }}>
       <div className="list-item">
         <span className="list-item-title">{prayer.title}</span>
-        <span className="list-item-icon">›</span>
+        <span className="list-item-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
       </div>
     </Link>
   )
@@ -20,9 +22,10 @@ function SubfolderItem({ folder, parentPath }: { folder: Folder; parentPath: str
   return (
     <Link to={path} style={{ textDecoration: 'none' }}>
       <div className="list-item">
-        <span className="list-item-title">📁 {folder.title}</span>
+        <span className="list-item-title">{folder.title}</span>
         <span className="list-item-icon">
-          <span className="folder-badge">{count}</span> ›
+          <span className="folder-badge">{count}</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
         </span>
       </div>
     </Link>
