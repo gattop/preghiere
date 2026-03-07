@@ -47,16 +47,6 @@ export default function RosarioPlayer() {
     return () => window.removeEventListener('keydown', handle)
   }, [next, prev])
 
-  // Click anywhere to advance (except back button and home link)
-  useEffect(() => {
-    const handle = (e: MouseEvent | TouchEvent) => {
-      const target = e.target as HTMLElement
-      if (target.closest('.rosario-btn') || target.closest('.rosario-home-link')) return
-      next()
-    }
-    window.addEventListener('click', handle)
-    return () => window.removeEventListener('click', handle)
-  }, [next])
 
   if (!steps.length) return null
 

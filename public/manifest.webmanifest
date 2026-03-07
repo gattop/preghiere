@@ -1,0 +1,29 @@
+{
+  "name": "Spada dello Spirito",
+  "short_name": "Spada S.",
+  "description": "Raccolta di preghiere cattoliche: rosario, vangelo del giorno e preghiere tradizionali.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0d1a",
+  "theme_color": "#9B8DF8",
+  "orientation": "portrait-primary",
+  "lang": "it",
+  "icons": [
+    {
+      "src": "/favicon/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
