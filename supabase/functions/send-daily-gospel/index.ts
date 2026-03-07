@@ -29,12 +29,19 @@ async function fetchGospel(): Promise<{ title: string; description: string; link
   }
 }
 
-async function sendMail(mailUrl: string, apiKey: string, to: string, subject: string, html: string): Promise<boolean> {
+async function sendMail(
+  mailUrl: string,
+  apiKey: string,
+  smtp: SmtpConfig,
+  to: string,
+  subject: string,
+  html: string,
+): Promise<boolean> {
   try {
     const res = await fetch(`${mailUrl}/api/mail/send`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
-      body: JSON.stringify({ to, subject, html }),
+      body: JSON.stringify({ to, subject, html, smtp }),
     })
     return res.ok
   } catch {
@@ -47,6 +54,15 @@ serve(async (_req) => {
   const serviceKey  = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
   const mailUrl     = Deno.env.get('MAIL_SERVER_URL')!
   const mailKey     = Deno.env.get('MAIL_SERVER_KEY')!
+
+  const smtp: SmtpConfig = {
+    host:   Deno.env.get('SMTP_HOST')!,
+    port:   parseInt(Deno.env.get('SMTP_PORT') ?? '587', 10),
+    secure: Deno.env.get('SMTP_SECURE') === 'true',
+    user:   Deno.env.get('SMTP_USER')!,
+    pass:   Deno.env.get('SMTP_PASS')!,
+    from:   Deno.env.get('SMTP_FROM')!,
+  }
 
   const admin = createClient(supabaseUrl, serviceKey)
 
@@ -103,7 +119,7 @@ serve(async (_req) => {
       </div>
     `
 
-    const ok = await sendMail(mailUrl, mailKey, email, `Vangelo del Giorno — ${gospel.title}`, html)
+    const ok = await sendMail(mailUrl, mailKey, smtp, email, `Vangelo del Giorno — ${gospel.title}`, html)
     if (ok) sent++
     else errors.push(email)
   }
@@ -113,6 +129,16 @@ serve(async (_req) => {
 
   return new Response(
     JSON.stringify({ sent, failed: errors.length, errors, title: gospel.title }),
+    { status: 200, headers: { 'Content-Type': 'application/json' } }
+  )
+})
+gospel.title}`, html)
+    if (ok) sent++
+    else errors.push(email)
+  }
+
+  return new Response(
+    JSON.stringify({ sent, failed: errors.length, errors }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }
   )
 })
