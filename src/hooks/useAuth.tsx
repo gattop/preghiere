@@ -1,7 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
-import type { Profile } from '../types'
+
+export interface Profile {
+  id: string
+  display_name: string | null
+  receive_daily_gospel: boolean
+  is_admin: boolean
+  created_at: string
+}
 
 interface AuthContextValue {
   session: Session | null
@@ -14,7 +21,6 @@ interface AuthContextValue {
   updatePassword: (newPassword: string) => Promise<void>
   deleteAccount: () => Promise<void>
   updateProfile: (updates: Partial<Pick<Profile, 'display_name' | 'receive_daily_gospel'>>) => Promise<void>
-  refreshProfile: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -25,11 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   async function loadProfile(userId: string) {
-    const { data } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
+    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single()
     setProfile(data ?? null)
   }
 
@@ -43,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
       if (session) loadProfile(session.user.id).catch(console.error)
-      else setProfile(null)
+      else { setProfile(null) }
     })
 
     return () => subscription.unsubscribe()
@@ -56,8 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signUp(email: string, password: string, displayName: string) {
     const { error } = await supabase.auth.signUp({
-      email,
-      password,
+      email, password,
       options: { data: { display_name: displayName } },
     })
     if (error) throw error
@@ -65,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signOut() {
     await supabase.auth.signOut()
+    window.location.href = '/'
   }
 
   async function updatePassword(newPassword: string) {
@@ -73,39 +75,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function deleteAccount() {
-    // Calls a Supabase edge function that deletes the user with admin privileges
     const { error } = await supabase.functions.invoke('delete-account')
     if (error) throw error
     await supabase.auth.signOut()
+    window.location.href = '/'
   }
 
   async function updateProfile(updates: Partial<Pick<Profile, 'display_name' | 'receive_daily_gospel'>>) {
     if (!session) throw new Error('Non autenticato')
-    const { error } = await supabase
-      .from('profiles')
-      .update(updates)
-      .eq('id', session.user.id)
+    const { error } = await supabase.from('profiles').update(updates).eq('id', session.user.id)
     if (error) throw error
     setProfile(prev => prev ? { ...prev, ...updates } : prev)
   }
 
-  async function refreshProfile() {
-    if (session) await loadProfile(session.user.id)
-  }
-
   return (
     <AuthContext.Provider value={{
-      session,
-      user: session?.user ?? null,
-      profile,
-      loading,
-      signIn,
-      signUp,
-      signOut,
-      updatePassword,
-      deleteAccount,
-      updateProfile,
-      refreshProfile,
+      session, user: session?.user ?? null, profile, loading,
+      signIn, signUp, signOut, updatePassword, deleteAccount, updateProfile,
     }}>
       {children}
     </AuthContext.Provider>

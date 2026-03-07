@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content'
+import Layout from '../layouts/Layout.astro'
+import { TOP_LEVEL_FOLDERS, FOLDERS } from '../data/folders'
+
+const allPrayers = await getCollection('prayers')
+
+// Count prayers per top-level folder (including nested)
+function countInFolder(folderId: string) {
+  return allPrayers.filter(p =>
+    p.data.folder === folderId || p.data.folder.startsWith(folderId + '/')
+  ).length
+}
+---
+
+<Layout title="Spada dello Spirito">
+  <div class="hero">
+    <span class="hero-eyebrow">✝ Raccolta di preghiere cattoliche</span>
+    <h1 class="hero-heading">
+      La fede è fondamento<br />di ciò che si spera,
+      <span class="accent-word">prova di ciò che non si vede.</span>
+    </h1>
+    <div class="hero-btns">
+      <a href="/rosario" class="btn btn-primary">🕊️ Santo Rosario</a>
+      <a href="/vangelo" class="btn btn-light">📖 Vangelo del giorno</a>
+      <a href="/bibbia"  class="btn btn-light">📜 Bibbia CEI</a>
+    </div>
+  </div>
+
+  <span class="section-label">Preghiere</span>
+  <div class="home-grid">
+    {TOP_LEVEL_FOLDERS.map((id, i) => {
+      const meta = FOLDERS[id]
+      const count = countInFolder(id)
+      return (
+        <a href={`/cartella/${id}`} class="home-card" style={`animation-delay:${i * 0.07}s`}>
+          <span class="home-card-icon">{meta?.icon ?? '🙏'}</span>
+          <span class="home-card-title">{meta?.title ?? id}</span>
+          <span class="home-card-count">{count} {count === 1 ? 'preghiera' : 'preghiere'}</span>
+        </a>
+      )
+    })}
+  </div>
+</Layout>

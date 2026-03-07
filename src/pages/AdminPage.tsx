@@ -22,10 +22,11 @@ export function AdminPage() {
     try {
       let q = supabase
         .from('prayer_proposals')
-        .select('*, profiles(display_name, email)')
+        .select('*, profiles(display_name)')
         .order('created_at', { ascending: false })
       if (filter !== 'all') q = q.eq('status', filter)
-      const { data } = await q
+      const { data, error } = await q
+      if (error) console.error('AdminPage load error:', error)
       setProposals((data as PrayerProposal[]) ?? [])
     } finally {
       setLoading(false)
@@ -95,7 +96,7 @@ function ProposalCard({
         <div>
           <div className="card-title">{proposal.title}</div>
           <div className="card-meta">
-            {proposal.profiles?.display_name ?? proposal.profiles?.email} · {new Date(proposal.created_at).toLocaleDateString('it-IT')}
+            {proposal.profiles?.display_name ?? '(utente sconosciuto)'} · {new Date(proposal.created_at).toLocaleDateString('it-IT')}
             {proposal.suggested_folder && ` · Cartella: ${proposal.suggested_folder}`}
           </div>
         </div>

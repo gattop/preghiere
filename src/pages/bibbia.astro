@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro'
+import BibleSearch from '../components/BibleSearch'
+---
+
+<Layout title="Cerca nella Bibbia" description="Cerca versetti della Sacra Scrittura per riferimento (es. Gv 3,16 oppure Mt 5,3-12).">
+  <div class="page-header">
+    <h1>Cerca nella Bibbia</h1>
+    <p class="page-subtitle">Inserisci un riferimento biblico (es. <em>Gv 3,16</em> oppure <em>Mt 5,3-12</em>)</p>
+  </div>
+  <BibleSearch client:load />
+</Layout>

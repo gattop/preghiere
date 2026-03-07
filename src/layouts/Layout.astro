@@ -1,0 +1,127 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = 'Spada dello Spirito',
+  description = 'Raccolta di preghiere cattoliche: rosario, vangelo del giorno e preghiere tradizionali.',
+} = Astro.props
+
+const fullTitle = title.includes('Spada dello Spirito') ? title : `${title} — Spada dello Spirito`
+const currentPath = Astro.url.pathname
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={`https://spadadellospirito.org${currentPath}`} />
+    <link rel="icon" type="image/png" href="/favicon/logo.png" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <a href="/" class="logo">
+          <svg class="logo-cross" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#9B8DF8"/>
+                <stop offset="100%" stop-color="#5A49D4"/>
+              </linearGradient>
+            </defs>
+            <rect x="39" y="8" width="22" height="104" rx="5" ry="5" fill="url(#lg)"/>
+            <rect x="12" y="30" width="76" height="22" rx="5" ry="5" fill="url(#lg)"/>
+          </svg>
+          <span class="logo-name">Spada dello Spirito</span>
+        </a>
+
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Apri menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <nav class="header-nav" id="header-nav">
+          <div class="site-nav">
+            <a href="/"        class={`nav-link ${currentPath === '/' ? 'active' : ''}`}>Home</a>
+            <a href="/rosario" class={`nav-link ${currentPath === '/rosario' ? 'active' : ''}`}>Rosario</a>
+            <a href="/vangelo" class={`nav-link ${currentPath.startsWith('/vangelo') ? 'active' : ''}`}>Vangelo</a>
+            <a href="/bibbia"  class={`nav-link ${currentPath.startsWith('/bibbia') ? 'active' : ''}`}>Bibbia</a>
+
+            <!-- Auth-dependent links — shown/hidden via client script -->
+            <span id="auth-links" style="display:none">
+              <a href="/preferiti" class={`nav-link ${currentPath.startsWith('/preferiti') ? 'active' : ''}`}>Preferiti</a>
+              <a href="/proposta"  class={`nav-link ${currentPath.startsWith('/proposta') ? 'active' : ''}`}>Proponi</a>
+              <span id="admin-link" style="display:none">
+                <a href="/admin" class={`nav-link ${currentPath.startsWith('/admin') ? 'active' : ''}`}>Admin</a>
+              </span>
+            </span>
+
+            <span id="user-links" style="display:none">
+              <a href="/profilo" class={`nav-link ${currentPath.startsWith('/profilo') ? 'active' : ''}`}>Profilo</a>
+              <button type="button" class="nav-link" id="sign-out-btn">Esci</button>
+            </span>
+
+            <span id="login-link">
+              <a href="/accedi" class="nav-link nav-link-pill">Accedi</a>
+            </span>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-wrap">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>Raccolta di preghiere cattoliche by Tommaso Martarelli</p>
+    </footer>
+  </body>
+</html>
+
+<script>
+  // ─ Hamburger toggle ───────────────────────────────────────
+  const toggle = document.getElementById('nav-toggle')!
+  const nav    = document.getElementById('header-nav')!
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open')
+    toggle.classList.toggle('open', open)
+    toggle.setAttribute('aria-expanded', String(open))
+    toggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu')
+  })
+
+  // ─ Auth nav state ─────────────────────────────────────────
+  import { supabase } from '../lib/supabase'
+  const { data: { session } } = await supabase.auth.getSession()
+  if (session) {
+    const authLinks  = document.getElementById('auth-links')
+    const userLinks  = document.getElementById('user-links')
+    const loginLink  = document.getElementById('login-link')
+    if (authLinks) authLinks.style.display = 'contents'
+    if (userLinks) userLinks.style.display = 'contents'
+    if (loginLink) loginLink.style.display = 'none'
+
+    // Show admin link if admin
+    const { data: profile } = await supabase.from('profiles').select('is_admin').eq('id', session.user.id).single()
+    if (profile?.is_admin) {
+      const adminLink = document.getElementById('admin-link')
+      if (adminLink) adminLink.style.display = 'inline'
+    }
+  }
+
+  document.getElementById('sign-out-btn')?.addEventListener('click', async () => {
+    await supabase.auth.signOut()
+    window.location.href = '/'
+  })
+</script>

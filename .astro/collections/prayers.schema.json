@@ -1,0 +1,34 @@
+{
+  "$ref": "#/definitions/prayers",
+  "definitions": {
+    "prayers": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "folder": {
+          "type": "string"
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "folder"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

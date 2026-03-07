@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Vangelo del Giorno" description="Leggi il Vangelo del giorno dalla fonte ufficiale Vatican News.">
+  <div class="page-header">
+    <h1>Vangelo del Giorno</h1>
+  </div>
+  <div id="vangelo-root"></div>
+</Layout>
+
+<script>
+  import { fetchGospel } from '../lib/gospelService'
+
+  const root = document.getElementById('vangelo-root')!
+
+  async function load() {
+    root.innerHTML = '<p class="loading-text">Caricamento vangelo...</p>'
+    try {
+      const gospel = await fetchGospel()
+      if (!gospel) {
+        root.innerHTML = '<p class="error-text">Vangelo non disponibile al momento.</p>'
+        return
+      }
+      root.innerHTML = `
+        <article class="vangelo-card">
+          <h2 class="vangelo-title">${escHtml(gospel.title)}</h2>
+          ${gospel.description ? `<div class="vangelo-body">${gospel.description}</div>` : ''}
+          <a class="vangelo-link" href="${escHtml(gospel.link)}" target="_blank" rel="noopener noreferrer">
+            Leggi su Vatican News →
+          </a>
+        </article>
+      `
+    } catch {
+      root.innerHTML = '<p class="error-text">Errore nel caricamento del vangelo.</p>'
+    }
+  }
+
+  function escHtml(s: string) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+  }
+
+  load()
+</script>

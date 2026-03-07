@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Accedi" description="Accedi al tuo account Spada dello Spirito o crea un nuovo profilo.">
+  <div class="auth-page">
+    <div class="auth-card">
+      <h1 class="auth-title">Accedi</h1>
+      <p class="auth-subtitle">Entra con il tuo account o registrati</p>
+
+      <div id="auth-error" class="auth-error hidden"></div>
+      <div id="auth-success" class="auth-success hidden"></div>
+
+      <form id="auth-form" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required autocomplete="email" class="form-input" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required autocomplete="current-password" minlength="6" class="form-input" />
+        </div>
+        <div class="auth-actions">
+          <button type="submit" id="login-btn" class="btn btn-primary">Accedi</button>
+          <button type="button" id="register-btn" class="btn btn-secondary">Registrati</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  import { supabase } from '../lib/supabase'
+
+  const form = document.getElementById('auth-form') as HTMLFormElement
+  const loginBtn = document.getElementById('login-btn') as HTMLButtonElement
+  const registerBtn = document.getElementById('register-btn') as HTMLButtonElement
+  const errorDiv = document.getElementById('auth-error')!
+  const successDiv = document.getElementById('auth-success')!
+
+  function showError(msg: string) {
+    errorDiv.textContent = msg
+    errorDiv.classList.remove('hidden')
+    successDiv.classList.add('hidden')
+  }
+
+  function showSuccess(msg: string) {
+    successDiv.textContent = msg
+    successDiv.classList.remove('hidden')
+    errorDiv.classList.add('hidden')
+  }
+
+  function setLoading(loading: boolean) {
+    loginBtn.disabled = loading
+    registerBtn.disabled = loading
+  }
+
+  loginBtn.addEventListener('click', async () => {
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value
+    if (!email || !password) return
+    setLoading(true)
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    if (error) {
+      showError(error.message)
+      setLoading(false)
+    } else {
+      window.location.href = '/'
+    }
+  })
+
+  registerBtn.addEventListener('click', async () => {
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
+    const password = (form.elements.namedItem('password') as HTMLInputElement).value
+    if (!email || !password) return
+    setLoading(true)
+    const { error } = await supabase.auth.signUp({ email, password })
+    if (error) {
+      showError(error.message)
+      setLoading(false)
+    } else {
+      showSuccess('Account creato! Controlla la tua email per confermare la registrazione.')
+      setLoading(false)
+    }
+  })
+
+  form.addEventListener('submit', e => e.preventDefault())
+
+  // Redirect if already logged in
+  supabase.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = '/'
+  })
+</script>

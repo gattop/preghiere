@@ -4,7 +4,18 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { setAliases, parseBibleRef, formatRef, isError, BibleRef } from './parseBibleRef';
+import { setAliases, parseBibleRef, isError } from './parseBibleRef';
+import type { BibleRef } from './parseBibleRef';
+
+function formatRef(ref: BibleRef, abbr: string): string {
+  let s = `${abbr} ${ref.chapter}`
+  if (ref.ranges.length > 0) {
+    s += ',' + ref.ranges
+      .map(r => r.from === r.to ? `${r.from}` : `${r.from}-${r.to}`)
+      .join('.')
+  }
+  return s
+}
 
 // ── Tipi ──────────────────────────────────────────────────────────────
 
@@ -69,7 +80,7 @@ export function useBibbia() {
         return { query, refLabel: '', versetti: [], error: parsed.message };
       }
 
-      const { bookKey, chapter, verseFrom, verseTo } = parsed as BibleRef;
+      const { bookKey, chapter, ranges } = parsed as BibleRef;
       const libro = data.libri[bookKey];
 
       if (!libro) {
@@ -90,18 +101,32 @@ export function useBibbia() {
         .map(Number)
         .sort((a, b) => a - b);
 
-      const fromV = verseFrom ?? allVerseNums[0];
-      const toV = verseTo ?? (verseFrom ? verseFrom : allVerseNums[allVerseNums.length - 1]);
-
-      const versetti: VersettoResult[] = allVerseNums
-        .filter((n) => n >= fromV && n <= toV)
-        .map((n) => ({
+      let versetti: VersettoResult[];
+      if (ranges.length === 0) {
+        // Capitolo intero
+        versetti = allVerseNums.map((n) => ({
           ref: `${bookKey} ${chapter},${n}`,
           libro: libro.nome,
           capitolo: chapter,
           versetto: n,
           testo: capData[String(n)],
         }));
+      } else {
+        // Uno o più range: mantieni l'ordine del testo biblico
+        const included = new Set<number>();
+        for (const r of ranges) {
+          allVerseNums.filter(n => n >= r.from && n <= r.to).forEach(n => included.add(n));
+        }
+        versetti = allVerseNums
+          .filter(n => included.has(n))
+          .map((n) => ({
+            ref: `${bookKey} ${chapter},${n}`,
+            libro: libro.nome,
+            capitolo: chapter,
+            versetto: n,
+            testo: capData[String(n)],
+          }));
+      }
 
       if (versetti.length === 0) {
         return {
