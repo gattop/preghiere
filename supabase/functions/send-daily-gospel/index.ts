@@ -72,19 +72,7 @@ serve(async (_req) => {
     return new Response(JSON.stringify({ skipped: true, reason: 'RSS fetch failed' }), { status: 200 })
   }
 
-  // 2. Controlla se questo articolo è già stato inviato
-  const { data: lastLog } = await admin
-    .from('gospel_log')
-    .select('link')
-    .order('sent_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
-
-  if (lastLog?.link === gospel.link) {
-    return new Response(JSON.stringify({ skipped: true, reason: 'Already sent' }), { status: 200 })
-  }
-
-  // 3. Recupera gli utenti iscritti
+  // 2. Recupera gli utenti iscritti
   const { data: profiles, error: profilesError } = await admin
     .from('profiles')
     .select('id, display_name')
@@ -124,21 +112,8 @@ serve(async (_req) => {
     else errors.push(email)
   }
 
-  // 5. Registra l'articolo inviato per evitare duplicati
-  await admin.from('gospel_log').insert({ link: gospel.link, title: gospel.title })
-
   return new Response(
     JSON.stringify({ sent, failed: errors.length, errors, title: gospel.title }),
-    { status: 200, headers: { 'Content-Type': 'application/json' } }
-  )
-})
-gospel.title}`, html)
-    if (ok) sent++
-    else errors.push(email)
-  }
-
-  return new Response(
-    JSON.stringify({ sent, failed: errors.length, errors }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }
   )
 })

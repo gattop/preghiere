@@ -6,4 +6,4 @@ Disallow: /proposta
 Disallow: /preferiti
 Disallow: /admin
 
-Sitemap: https://spadadellospirito.org/sitemap.xml
+Sitemap: https://spadadellospirito.org/sitemap-index.xml
