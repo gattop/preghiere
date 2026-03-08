@@ -76,7 +76,12 @@ import Layout from '../layouts/Layout.astro'
     setLoading(true)
     const { error } = await supabase.auth.signUp({ email, password })
     if (error) {
-      showError(error.message)
+      const msg = error.message.toLowerCase()
+      if (msg.includes('sending confirmation email') || msg.includes('email')) {
+        showError('Impossibile inviare l\'email di conferma in questo momento. Riprova tra qualche minuto.')
+      } else {
+        showError(error.message)
+      }
       setLoading(false)
     } else {
       showSuccess('Account creato! Controlla la tua email per confermare la registrazione.')

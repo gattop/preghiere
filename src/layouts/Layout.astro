@@ -25,7 +25,13 @@ const currentPath = Astro.url.pathname
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={`https://spadadellospirito.org${currentPath}`} />
+    <meta property="og:image" content="https://spadadellospirito.org/favicon/icon-512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="it_IT" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="https://spadadellospirito.org/favicon/icon-512.png" />
     <link rel="canonical" href={`https://spadadellospirito.org${currentPath}`} />
     <link rel="icon" type="image/png" href="/favicon/logo.png" />
     <!-- PWA -->
