@@ -58,9 +58,24 @@ export default function CalendarioLiturgico() {
     const y = today.getFullYear()
     const m = String(today.getMonth() + 1).padStart(2, '0')
     const d = String(today.getDate()).padStart(2, '0')
+    const cacheKey = `cal-${y}-${m}-${d}`
+
+    try {
+      const cached = localStorage.getItem(cacheKey)
+      if (cached) {
+        setData(JSON.parse(cached))
+        setLoading(false)
+        return
+      }
+    } catch {}
+
     fetch(`/api/cal/api/v0/it/calendars/general-it/${y}/${m}/${d}`)
       .then(r => r.ok ? r.json() : Promise.reject())
-      .then((json: CalendarDay) => { setData(json); setLoading(false) })
+      .then((json: CalendarDay) => {
+        try { localStorage.setItem(cacheKey, JSON.stringify(json)) } catch {}
+        setData(json)
+        setLoading(false)
+      })
       .catch(() => setLoading(false))
   }, [])
 
@@ -85,7 +100,7 @@ export default function CalendarioLiturgico() {
   const icon = SEASON_ICON[data.season] ?? '✝️'
 
   return (
-    <div className="cal-card" style={{ '--cal-accent': hex } as React.CSSProperties}>
+    <div className="cal-card" style={{ '--cal-accent': hex } as React.CSSProperties} aria-live="polite" aria-atomic="true">
       <div className="cal-left">
         <span className="cal-season">
           {icon} {seasonLabel}{data.season_week > 0 ? ` · Settimana ${data.season_week}` : ''}

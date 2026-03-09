@@ -49,12 +49,23 @@ function countInFolder(folderId: string) {
 
   <CalendarioLiturgico client:load />
   <span class="section-label">Preghiere</span>
-  <div class="home-grid">
+
+  <div class="prayer-search-wrap">
+    <input
+      type="search"
+      id="prayer-search"
+      placeholder="Cerca una preghiera..."
+      class="prayer-search-input"
+      autocomplete="off"
+    />
+  </div>
+
+  <div class="home-grid" id="prayer-grid">
     {TOP_LEVEL_FOLDERS.map((id, i) => {
       const meta = FOLDERS[id]
       const count = countInFolder(id)
       return (
-        <a href={`/cartella/${id}`} class="home-card" style={`animation-delay:${i * 0.07}s`}>
+        <a href={`/cartella/${id}`} class="home-card" data-title={meta?.title ?? id} style={`animation-delay:${i * 0.07}s`}>
           <span class="home-card-icon">{meta?.icon ?? '🙏'}</span>
           <span class="home-card-title">{meta?.title ?? id}</span>
           <span class="home-card-count">{count} {count === 1 ? 'preghiera' : 'preghiere'}</span>
@@ -62,4 +73,46 @@ function countInFolder(folderId: string) {
       )
     })}
   </div>
+
+  <div id="prayer-search-results" class="prayer-search-list" hidden></div>
 </Layout>
+
+<script>
+  const input = document.getElementById('prayer-search') as HTMLInputElement
+  const grid = document.getElementById('prayer-grid') as HTMLDivElement
+  const results = document.getElementById('prayer-search-results') as HTMLDivElement
+
+  type PrayerEntry = { id: string; title: string; folder: string }
+  let allPrayers: PrayerEntry[] = []
+
+  async function loadPrayers() {
+    if (allPrayers.length) return
+    try {
+      const res = await fetch('/api/prayers.json')
+      if (res.ok) allPrayers = await res.json()
+    } catch {}
+  }
+
+  input.addEventListener('input', async () => {
+    const q = input.value.trim().toLowerCase()
+    if (!q) {
+      grid.hidden = false
+      results.hidden = true
+      return
+    }
+    await loadPrayers()
+    const matches = allPrayers.filter(p => p.title.toLowerCase().includes(q))
+    grid.hidden = true
+    results.hidden = false
+    if (!matches.length) {
+      results.innerHTML = '<p class="empty" style="padding:.5rem 0">Nessuna preghiera trovata.</p>'
+      return
+    }
+    results.innerHTML = matches.map(p =>
+      `<a href="/preghiera/${p.id}" class="list-item" style="text-decoration:none">
+        <span class="list-item-title">${p.title}</span>
+        <span class="list-item-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+      </a>`
+    ).join('')
+  })
+</script>

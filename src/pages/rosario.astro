@@ -38,3 +38,9 @@ import RosarioPlayer from '../components/RosarioPlayer'
     <RosarioPlayer client:load />
   </body>
 </html>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+  }
+</script>

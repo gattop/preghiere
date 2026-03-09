@@ -24,6 +24,9 @@ import Layout from '../layouts/Layout.astro'
           <button type="submit" id="login-btn" class="btn btn-primary">Accedi</button>
           <button type="button" id="register-btn" class="btn btn-secondary">Registrati</button>
         </div>
+        <p style="text-align:center;margin-top:.8rem;font-size:.82rem">
+          <a href="/reset-password" style="color:var(--accent);text-decoration:none">Hai dimenticato la password?</a>
+        </p>
       </form>
     </div>
   </div>
@@ -70,6 +73,8 @@ import Layout from '../layouts/Layout.astro'
   })
 
   registerBtn.addEventListener('click', async () => {
+    const pwdInput = form.elements.namedItem('password') as HTMLInputElement
+    pwdInput.setAttribute('autocomplete', 'new-password')
     const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
     const password = (form.elements.namedItem('password') as HTMLInputElement).value
     if (!email || !password) return

@@ -1,10 +1,11 @@
-const CACHE_NAME = 'spada-v1'
+const CACHE_NAME = 'spada-v2'
 
 const PRECACHE_URLS = [
   '/',
   '/rosario',
   '/vangelo',
   '/bibbia',
+  '/offline.html',
   '/favicon/logo.png',
   '/favicon/icon-192.png',
   '/favicon/icon-512.png',
@@ -83,6 +84,6 @@ self.addEventListener('fetch', (event) => {
         }
         return res
       })
-      .catch(() => caches.match(request))
+      .catch(() => caches.match(request).then(cached => cached ?? caches.match('/offline.html')))
   )
 })

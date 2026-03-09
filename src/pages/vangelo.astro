@@ -11,6 +11,7 @@ import Layout from '../layouts/Layout.astro'
 
 <script>
   import { fetchGospel } from '../lib/gospelService'
+  import { escHtml } from '../utils/escHtml'
 
   const root = document.getElementById('vangelo-root')!
 
@@ -25,7 +26,7 @@ import Layout from '../layouts/Layout.astro'
       root.innerHTML = `
         <article class="vangelo-card">
           <h2 class="vangelo-title">${escHtml(gospel.title)}</h2>
-          ${gospel.description ? `<div class="vangelo-body">${gospel.description}</div>` : ''}
+          ${gospel.description ? `<div class="vangelo-body">${escHtml(gospel.description)}</div>` : ''}
           <a class="vangelo-link" href="${escHtml(gospel.link)}" target="_blank" rel="noopener noreferrer">
             Leggi su Vatican News →
           </a>
@@ -34,10 +35,6 @@ import Layout from '../layouts/Layout.astro'
     } catch {
       root.innerHTML = '<p class="error-text">Errore nel caricamento del vangelo.</p>'
     }
-  }
-
-  function escHtml(s: string) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   }
 
   load()

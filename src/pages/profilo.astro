@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout title="Il mio profilo" description="Gestisci il tuo account Spada dello Spirito.">
+<Layout title="Il mio profilo" description="Gestisci il tuo account Spada dello Spirito." noindex={true}>
   <div class="page-header">
     <h1>Il mio profilo</h1>
   </div>
@@ -14,6 +14,7 @@ import Layout from '../layouts/Layout.astro'
 
 <script>
   import { supabase } from '../lib/supabase'
+  import { escHtml } from '../utils/escHtml'
 
   const root = document.getElementById('profile-root')!
 
@@ -78,10 +79,6 @@ import Layout from '../layouts/Layout.astro'
         errorDiv.classList.remove('hidden')
       }
     })
-  }
-
-  function escHtml(s: string) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   }
 
   load()

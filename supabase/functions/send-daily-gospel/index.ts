@@ -11,6 +11,15 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const RSS_URL = 'https://www.vaticannews.va/it/vangelo-del-giorno-e-parola-del-giorno.rss.xml'
 
+interface SmtpConfig {
+  host:   string
+  port:   number
+  secure: boolean
+  user:   string
+  pass:   string
+  from:   string
+}
+
 async function fetchGospel(): Promise<{ title: string; description: string; link: string } | null> {
   try {
     const res = await fetch(RSS_URL, { headers: { 'User-Agent': 'spada-dello-spirito/1.0' } })

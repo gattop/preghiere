@@ -5,12 +5,14 @@ interface Props {
   title?: string
   description?: string
   jsonLd?: object | object[]
+  noindex?: boolean
 }
 
 const {
   title = 'Spada dello Spirito',
   description = 'Raccolta di preghiere cattoliche con Rosario, Vangelo del giorno e Bibbia ricercabile.',
   jsonLd,
+  noindex = false,
 } = Astro.props
 
 const fullTitle = title.includes('Spada dello Spirito') ? title : `${title} — Spada dello Spirito`
@@ -24,6 +26,7 @@ const currentPath = Astro.url.pathname
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:site_name" content="Spada dello Spirito" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
@@ -35,9 +38,15 @@ const currentPath = Astro.url.pathname
     <meta property="og:image:alt" content="Logo Spada dello Spirito" />
     <meta property="og:locale" content="it_IT" />
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://spadadellospirito.org/favicon/icon-512.png" />
     <link rel="canonical" href={`https://spadadellospirito.org${currentPath}`} />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" /></noscript>
     <link rel="icon" type="image/png" href="/favicon/logo.png" />
     <!-- PWA -->
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -113,11 +122,27 @@ const currentPath = Astro.url.pathname
   // ─ Hamburger toggle ───────────────────────────────────────
   const toggle = document.getElementById('nav-toggle')!
   const nav    = document.getElementById('header-nav')!
+
+  function closeNav() {
+    nav.classList.remove('open')
+    toggle.classList.remove('open')
+    toggle.setAttribute('aria-expanded', 'false')
+    toggle.setAttribute('aria-label', 'Apri menu')
+  }
+
   toggle.addEventListener('click', () => {
     const open = nav.classList.toggle('open')
     toggle.classList.toggle('open', open)
     toggle.setAttribute('aria-expanded', String(open))
     toggle.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu')
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) closeNav()
+  })
+
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('open') && !nav.contains(e.target as Node) && e.target !== toggle) closeNav()
   })
 
   // ─ Auth nav state ─────────────────────────────────────────

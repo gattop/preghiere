@@ -26,12 +26,14 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
       window.location.href = '/accedi'
       return
     }
-    if (isFav) {
-      setIsFav(false)
-      await supabase.from('favorites').delete().eq('user_id', userId).eq('prayer_id', prayerId)
+    const prev = isFav
+    setIsFav(!prev)
+    if (prev) {
+      const { error } = await supabase.from('favorites').delete().eq('user_id', userId).eq('prayer_id', prayerId)
+      if (error) setIsFav(true)
     } else {
-      setIsFav(true)
-      await supabase.from('favorites').insert({ user_id: userId, prayer_id: prayerId })
+      const { error } = await supabase.from('favorites').insert({ user_id: userId, prayer_id: prayerId })
+      if (error) setIsFav(false)
     }
   }
 
@@ -39,7 +41,9 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
     <button
       className={`fav-btn${isFav ? ' active' : ''}`}
       onClick={toggle}
+      aria-pressed={isFav}
       title={isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
+      aria-label={isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
     >
       {isFav ? '❤️' : '🤍'}
     </button>

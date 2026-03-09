@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 ---
 
-<Layout title="Amministrazione" description="Pannello di amministrazione.">
+<Layout title="Amministrazione" description="Pannello di amministrazione." noindex={true}>
   <div class="page-header">
     <h1>Amministrazione</h1>
   </div>
@@ -13,6 +13,7 @@ import Layout from '../layouts/Layout.astro'
 
 <script>
   import { supabase } from '../lib/supabase'
+  import { escHtml } from '../utils/escHtml'
 
   const root = document.getElementById('admin-root')!
 
@@ -65,14 +66,10 @@ import Layout from '../layouts/Layout.astro'
       btn.addEventListener('click', async () => {
         const id = btn.dataset.id!
         if (!confirm('Eliminare questa proposta?')) return
-        await supabase.from('proposals').delete().eq('id', id)
+        await supabase.from('prayer_proposals').delete().eq('id', id)
         btn.closest('.admin-card')?.remove()
       })
     })
-  }
-
-  function escHtml(s: string) {
-    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
   }
 
   load()
