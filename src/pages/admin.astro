@@ -53,7 +53,7 @@ import Layout from '../layouts/Layout.astro'
         <pre class="admin-card-body">${escHtml(p.content)}</pre>
         ${p.author_note ? `<p class="admin-card-notes"><em>Note: ${escHtml(p.author_note)}</em></p>` : ''}
         <p class="admin-card-meta">Inviata: ${new Date(p.created_at).toLocaleDateString('it-IT')}</p>
-        <button class="btn-danger btn-sm" data-id="${escHtml(p.id)}">Elimina</button>
+        <button class="btn btn-danger btn-sm" data-id="${escHtml(p.id)}">Elimina</button>
       </div>
     `).join('')
 

@@ -131,8 +131,9 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 
 /* ─ Prayer body ───────────────────────────────────────────── */
 .prayer-subtitle { text-align:center; color:var(--text-muted); font-size:.92em; margin-top:-.3rem; margin-bottom:1.4rem; font-style:italic; }
-.prayer-description { text-align:center; color:var(--text-muted); font-size:.93em; margin-bottom:1.4rem; }
-.prayer-body { margin-top:1.4rem; padding:1.6rem 1.8rem 2rem; background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-body); font-size:1.08em; line-height:2.1; color:var(--text); overflow:hidden; }
+.prayer-description { text-align:center; color:var(--text-muted); font-size:.93em; margin-bottom:.3rem; }
+.prayer-body { margin-top:.1rem; padding:.9rem 1.8rem 2rem; background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-body); font-size:1.08em; line-height:2.1; color:var(--text); overflow:hidden; }
+
 .prayer-body p { margin:1rem 0; }
 .prayer-body h3 { font-family:var(--font-body); font-size:.72em; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin:2rem 0 .65rem; }
 .prayer-body blockquote { white-space:pre-line; margin:1.1rem 0; padding:1rem 1.4rem; background:var(--accent-l); border-left:4px solid var(--accent); font-style:italic; font-size:1em; line-height:2; color:var(--accent-d); border-radius:var(--radius); }
@@ -142,18 +143,6 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .prayer-body td { padding:.55rem .75rem; border-bottom:1px solid var(--border-soft); font-size:.95em; vertical-align:top; }
 .prayer-body tr:hover td { background:var(--accent-l); }
 .prayer-body td:nth-child(2) { font-style:italic; color:var(--accent); }
-
-/* ─ Read mode overlay ─────────────────────────────────────── */
-.read-mode { position:fixed; inset:0; z-index:500; background:linear-gradient(160deg,#f5f2ff 0%,#fff8f4 100%); overflow-y:auto; padding:3.5rem 1rem 3rem; display:flex; flex-direction:column; align-items:center; animation:fadeIn .22s ease both; }
-.read-mode-close { position:fixed; top:1rem; right:1rem; background:rgba(255,255,255,.9); border:1.5px solid rgba(180,170,230,.4); border-radius:50%; width:42px; height:42px; font-size:1.1rem; cursor:pointer; color:var(--text-muted); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-sm); transition:color .15s,transform .15s; z-index:501; }
-.read-mode-close:hover { color:var(--accent); transform:scale(1.1); }
-.read-mode-title { font-family:var(--font-serif); font-size:clamp(1.7rem,5vw,2.4rem); font-weight:800; color:var(--text); text-align:center; margin-bottom:.3rem; max-width:680px; }
-.read-mode-subtitle { font-size:.95rem; color:var(--text-muted); text-align:center; font-style:italic; margin-bottom:2rem; }
-.read-mode-body { width:100%; max-width:680px; font-family:var(--font-body); font-size:clamp(1.22rem,3vw,1.42rem); line-height:2.3; color:var(--text); }
-.read-mode-body p { margin:1.2rem 0; }
-.read-mode-body em { display:block; font-style:italic; color:var(--text-muted); margin:.8rem 0; }
-.read-mode-body blockquote { margin:1.4rem 0; padding:1.2rem 1.6rem; background:var(--accent-l); border-left:4px solid var(--accent); font-style:italic; color:var(--accent-d); border-radius:var(--radius); white-space:pre-line; line-height:2.1; }
-.read-mode-body hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 
 /* ─ Buttons ───────────────────────────────────────────────── */
 .btn { font-family:var(--font-body); font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:.72rem 1.55rem; border-radius:var(--radius-pill); cursor:pointer; border:none; display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap; transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,filter .15s; text-decoration:none; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
@@ -184,13 +173,6 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .share-btn { display:none; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:color .18s,transform .18s; }
 .share-btn:hover { color:var(--accent); transform:scale(1.15); }
 
-/* ─ Prayer search ─────────────────────────────────────────── */
-.prayer-search-wrap { width:100%; max-width:var(--max-w); margin-bottom:1rem; }
-.prayer-search-input { width:100%; padding:.65rem 1rem; border-radius:var(--radius-pill); border:1.5px solid var(--border); background:rgba(255,255,255,.78); backdrop-filter:blur(12px); font-family:var(--font-body); font-size:.94rem; color:var(--text); outline:none; transition:border-color .18s,box-shadow .18s; }
-.prayer-search-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(123,108,246,.15); }
-.prayer-search-input::placeholder { color:var(--text-subtle); }
-.prayer-search-list { display:flex; flex-direction:column; gap:.4rem; margin-bottom:2rem; }
-
 /* ─ Spinner ───────────────────────────────────────────────── */
 .spinner { width:36px; height:36px; border:3px solid rgba(123,108,246,.2); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; margin:2rem auto; }
 
@@ -204,37 +186,21 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .form-error { display:block; font-size:.84rem; color:#DC2626; margin-top:.35rem; }
 .form-success { display:block; font-size:.84rem; color:#16A34A; margin-top:.35rem; }
 
-/* ─ Cards ─────────────────────────────────────────────────── */
-.card { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:1.4rem 1.6rem; box-shadow:var(--shadow-sm); backdrop-filter:blur(10px); }
-.card + .card { margin-top:.6rem; }
-.card-title { font-family:var(--font-body); font-size:.95rem; font-weight:700; color:var(--text); margin-bottom:.25rem; line-height:1.35; }
-.card-meta  { font-size:.76rem; color:var(--text-muted); }
-
-/* ─ Status tags ───────────────────────────────────────────── */
-.tag { display:inline-flex; align-items:center; padding:.18rem .55rem; border-radius:var(--radius-pill); font-size:.65rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; }
-.tag-pending  { background:rgba(251,191,36,.15); color:#92400E; border:1px solid rgba(251,191,36,.35); }
-.tag-approved { background:rgba(34,197,94,.12);  color:#166534; border:1px solid rgba(34,197,94,.3); }
-.tag-rejected { background:rgba(239,68,68,.12);  color:#991B1B; border:1px solid rgba(239,68,68,.25); }
-
 /* ─ Toggle row ────────────────────────────────────────────── */
 .toggle-row { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.75rem 0; border-bottom:1px solid var(--border-soft); }
 .toggle-label { font-size:.9em; }
 
 /* ─ Misc ──────────────────────────────────────────────────── */
-.lead { color:var(--text-muted); font-size:1em; margin:.5rem 0 1rem; }
 .empty { text-align:center; color:var(--text-subtle); font-style:italic; padding:2rem; }
 
 /* ─ Vangelo ───────────────────────────────────────────────── */
 .vangelo-card { background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); padding:1.8rem 2rem; box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); margin-top:1.2rem; font-size:1.06em; line-height:2.05; }
-.gospel-date { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--text-subtle); margin-bottom:.6rem; }
 
 /* ─ Bible search ──────────────────────────────────────────── */
 .bible-wrapper  { padding-top:.5rem; }
 .bible-search-row { display:flex; gap:.6rem; margin-bottom:1rem; }
 .bible-input { flex:1; padding:.72rem 1rem; border:1.5px solid rgba(180,170,230,.45); border-radius:var(--radius); font-family:var(--font-body); font-size:.95em; background:rgba(255,255,255,.78); outline:none; transition:border-color .18s,box-shadow .18s; }
 .bible-input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(123,108,246,.1); background:rgba(255,255,255,.95); }
-.bible-chip { padding:.3rem .7rem; background:rgba(255,255,255,.65); border:1.5px solid var(--border); border-radius:var(--radius-pill); cursor:pointer; font-size:.78rem; font-family:var(--font-body); color:var(--text-muted); transition:all .15s; }
-.bible-chip:hover { background:var(--accent-l); color:var(--accent-d); border-color:rgba(123,108,246,.3); }
 .bible-results-card { border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); margin-top:.5rem; border:1.5px solid var(--border); }
 .bible-results-header { background:var(--accent); color:#fff; padding:.9rem 1.4rem; display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
 .bible-versetto-row { display:flex; align-items:flex-start; gap:.8rem; padding:.6rem 1.4rem; border-bottom:1px solid var(--border-soft); background:rgba(255,255,255,.82); }
@@ -243,8 +209,6 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 /* ─ Rosario ───────────────────────────────────────────────── */
 .rosario-page { min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.6rem; padding:2rem 1rem; text-align:center; background:linear-gradient(145deg,#BDD0EE 0%,#CCBFED 28%,#E8BFDA 62%,#F5CEBC 100%); user-select:none; }
 .rosario-text, .mistero-card { user-select:text; }
-.rosario-title { font-family:var(--font-serif); font-size:clamp(1.6rem,5vw,2.4rem); font-weight:800; color:var(--text); line-height:1.25; margin-bottom:.2rem; }
-.rosario-subtitle { font-size:.9rem; color:var(--accent); font-weight:600; letter-spacing:.02em; }
 .rosario-text { font-family:var(--font-body); font-size:clamp(1.28rem,4vw,1.72rem); color:var(--text); line-height:2.1; max-width:560px; text-align:center; padding:1.8rem 2.4rem; background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); animation:rosarioFade .38s cubic-bezier(.22,.68,0,1.1) both; }
 .rosario-hint { font-size:.74rem; color:var(--text-subtle); letter-spacing:.04em; text-transform:uppercase; font-weight:500; }
 .rosario-nav { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; padding:1rem 0 .5rem; border-bottom:1px solid var(--border-soft); margin-bottom:1.5rem; }
@@ -254,13 +218,10 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .rosario-btn:active:not(:disabled) { transform:scale(.94); }
 .rosario-btn:disabled { opacity:.3; cursor:not-allowed; pointer-events:none; }
 .mistero-card { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:1.4rem 1.6rem; margin-bottom:1rem; box-shadow:var(--shadow-xs); backdrop-filter:blur(10px); }
-.mistero-number { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:var(--accent); color:#fff; font-weight:800; font-size:.8rem; margin-bottom:.6rem; }
 .mistero-title { font-weight:700; font-size:1.02em; color:var(--text); margin-bottom:.25rem; }
-.mistero-text  { color:var(--text-muted); font-size:.9em; }
 .ave-beads { display:flex; flex-wrap:wrap; gap:.35rem; justify-content:center; max-width:340px; }
 .ave-bead { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; font-size:.7rem; font-weight:700; border:2px solid rgba(180,170,230,.4); background:rgba(255,255,255,.6); color:var(--text-muted); transition:all .2s; }
 .ave-bead.done { background:var(--accent); border-color:var(--accent); color:#fff; }
-.ave-bead.current { background:rgba(255,255,255,.95); border-color:var(--accent); color:var(--accent); font-weight:900; transform:scale(1.15); box-shadow:0 0 0 4px rgba(123,108,246,.2); }
 .progress-bar { height:4px; background:rgba(180,170,230,.35); border-radius:2px; overflow:hidden; margin-bottom:.4rem; width:100%; max-width:560px; }
 .progress-fill { height:100%; background:var(--accent); border-radius:2px; transition:width .4s ease; }
 
