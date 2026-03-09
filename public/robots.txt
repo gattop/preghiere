@@ -6,6 +6,7 @@ Disallow: /proposta
 Disallow: /preferiti
 Disallow: /admin
 Disallow: /reset-password
+Disallow: /nuova-password
 Disallow: /api/
 
 Sitemap: https://spadadellospirito.org/sitemap-index.xml
