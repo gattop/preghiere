@@ -2,7 +2,7 @@
 title: Preghiera a San Michele Arcangelo
 folder: santi/san-michele-arcangelo
 order: 1
-description: Preghiera tradizionale a San Michele Arcangelo per la protezione spirituale contro il male e le insidie del demonio.
+description: Preghiera a San Michele Arcangelo per la protezione spirituale contro il male e le insidie del demonio.
 ---
 
 San Michele Arcangelo, difendici nella lotta, sii il nostro aiuto contro la malvagità e le insidie del demonio. Supplichevoli preghiamo che Dio lo domini e Tu, Principe della Milizia Celeste, con il potere che ti viene da Dio, incatena nell'inferno Satana e gli spiriti maligni, che si aggirano per il mondo per far perdere le anime.

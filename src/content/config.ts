@@ -5,8 +5,8 @@ const prayers = defineCollection({
   schema: z.object({
     title: z.string(),
     folder: z.string(),
-    subtitle: z.string().optional(),
-    description: z.string().optional(),
+    subtitle: z.string().nullish().transform(v => v ?? undefined),
+    description: z.string().nullish().transform(v => v ?? undefined),
     order: z.number().optional(),
   }),
 })

@@ -27,4 +27,4 @@ Mio Dio, ti amo con tutto il cuore sopra ogni cosa, perché sei bene infinito e 
 
 Vergine Immacolata, Madre mia Maria, io rinnovo a te, oggi e per sempre, la consacrazione di tutto me stesso, perché tu disponga di me per il bene delle anime. Solo ti chiedo, o mia Regina e Madre della Chiesa, di cooperare fedelmente, come degno milite, alla tua missione, per l'avvento del regno di Gesú nel mondo. Ti offro pertanto, o Cuore Immacolato di Maria, le preghiere, le azioni e i sacrifici di questo giorno secondo le intenzioni suggerite.
 
-*«O Maria, concepita senza peccato, prega per noi che a te ricorriamo, e per quanti a te non ricorrono, in particolare per i nemici della santa Chiesa e per quelli che ti sono raccomandati.»*
+>«O Maria, concepita senza peccato, prega per noi che a te ricorriamo, e per quanti a te non ricorrono, in particolare per i nemici della santa Chiesa e per quelli che ti sono raccomandati.»

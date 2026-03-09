@@ -17,8 +17,8 @@ O Cuore di Gesú, a te raccomando in questa notte l'anima e il corpo, affinché 
 
 ### A Maria Santissima
 
-> Ti saluto, o Maria Immacolata, Figlia dell'eterno Padre, e ti prego di darmi la purità nei pensieri.
-> Ti saluto, o Maria Immacolata, Madre dell'eterno Figlio, e ti prego di darmi la purità di parole.
+> Ti saluto, o Maria Immacolata, Figlia dell'eterno Padre, e ti prego di darmi la purità nei pensieri. \
+> Ti saluto, o Maria Immacolata, Madre dell'eterno Figlio, e ti prego di darmi la purità di parole. \
 > Ti saluto, o Maria Immacolata, Sposa dello Spirito Santo, e ti prego di darmi la purità nelle opere.
 
 ### Esame di coscienza

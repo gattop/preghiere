@@ -3,7 +3,6 @@ title: Coroncina al Sacro Cuore di Gesù
 folder: sacro-cuore
 subtitle: di San Pio da Pietrelcina
 order: 2
-description: Coroncina al Sacro Cuore di Gesù di Padre Pio per chiedere grazie e conforto attraverso le sante promesse del Signore.
 ---
 
 O mio Gesù, che hai detto: «In verità vi dico, chiedete ed otterrete, cercate e troverete, picchiate e vi sarà aperto!», ecco che io picchio, io cerco, io chiedo la grazia…

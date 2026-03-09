@@ -100,7 +100,7 @@ export default function RosarioPlayer() {
         )}
       </div>
 
-      <p className="rosario-hint">Tocca lo schermo o usa le frecce per navigare</p>
+      <p className="rosario-hint"> Usa le frecce per navigare</p>
     </div>
   )
 }
