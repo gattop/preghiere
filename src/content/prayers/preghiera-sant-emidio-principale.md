@@ -3,6 +3,7 @@ title: Preghiera a Sant'Emidio
 folder: santi/sant-emidio
 subtitle: di Fratel Cosimo
 order: 1
+description: Preghiera principale a Sant'Emidio vescovo e martire, protettore contro i terremoti e patrono di Ascoli Piceno.
 ---
 
 O glorioso e amato S. Emidio, invitto martire e apostolo invincibile della fede, nostro particolare protettore, tu che con ardente zelo propagasti il messaggio del Vangelo di Gesù Cristo, ascolta oggi la nostra preghiera che con tanta fiducia a te rivolgiamo.

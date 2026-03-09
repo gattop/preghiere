@@ -2,6 +2,7 @@
 title: Triduo a Sant'Emidio — Giorno 3
 folder: santi/sant-emidio/triduo-sant-emidio
 order: 3
+description: Terzo giorno del Triduo a Sant'Emidio di Fratel Cosimo, in preparazione alla festa liturgica del 5 agosto.
 ---
 
 *Nel nome del Padre, del Figlio e dello Spirito Santo. Amen.*

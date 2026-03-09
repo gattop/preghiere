@@ -12,12 +12,18 @@ export interface FolderMeta {
 
 export const FOLDERS: Record<string, FolderMeta> = {
   // ─── Top-level ────────────────────────────────────────────────
-  'preghiere-quotidiane':   { title: 'Preghiere quotidiane',   icon: '🌅', order: 1 },
-  'spirito-santo':          { title: 'Spirito Santo',           icon: '🕊️', order: 2 },
-  'sacro-cuore':            { title: 'Sacro Cuore di Gesù',    icon: '❤️',  order: 3 },
-  'santi':                  { title: 'Santi',                   icon: '✨', order: 4 },
-  'credo':                  { title: 'Credo',                   icon: '🙏', order: 5 },
-  'giubileo-2025':          { title: 'Giubileo 2025',           icon: '⛪', order: 6 },
+  'preghiere-quotidiane':   { title: 'Preghiere quotidiane',   icon: '🌅', order: 1,
+    description: 'Preghiere cattoliche per il mattino e la sera: atti di fede, di speranza, di carità e di contrizione.' },
+  'spirito-santo':          { title: 'Spirito Santo',           icon: '🕊️', order: 2,
+    description: 'Preghiere allo Spirito Santo per invocare i suoi sette doni e la sua luce nella vita quotidiana.' },
+  'sacro-cuore':            { title: 'Sacro Cuore di Gesù',    icon: '❤️',  order: 3,
+    description: 'Preghiere e coroncina al Sacro Cuore di Gesù, consacrazione e atti di riparazione.' },
+  'santi':                  { title: 'Santi',                   icon: '✨', order: 4,
+    description: 'Preghiere ai santi della tradizione cattolica: San Michele Arcangelo, San Giuda Taddeo, San Francesco e altri.' },
+  'credo':                  { title: 'Credo',                   icon: '🙏', order: 5,
+    description: 'Il Credo Apostolico e il Simbolo Niceno-Costantinopolitano, professioni di fede della Chiesa cattolica.' },
+  'giubileo-2025':          { title: 'Giubileo 2025',           icon: '⛪', order: 6,
+    description: 'Preghiere ufficiali del Giubileo 2025 indette da Papa Francesco per l\'Anno Santo.' },
 
   // ─── Santi subfolders ─────────────────────────────────────────
   'santi/san-michele-arcangelo': { title: 'San Michele Arcangelo',  order: 1 },

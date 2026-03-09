@@ -86,7 +86,7 @@ body {
 /* ─ Hero ──────────────────────────────────────────────────── */
 .hero { padding:1.5rem 0 2.5rem; }
 .hero-eyebrow { display:inline-flex; align-items:center; gap:.4rem; font-size:.72rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--text-muted); background:rgba(255,255,255,.6); border:1.5px solid rgba(255,255,255,.88); border-radius:var(--radius-pill); padding:.28rem .85rem; margin-bottom:1.4rem; backdrop-filter:blur(8px); }
-.hero-heading { font-family:var(--font-serif); font-size:clamp(1.8rem,6vw,3rem); font-weight:700; line-height:1.35; color:var(--text); margin:0 0 .3rem; letter-spacing:-.01em; font-style:italic; }
+.hero-heading { font-family:var(--font-serif); font-size:clamp(1.8rem,6vw,3rem); font-weight:700; line-height:1.35; color:var(--text); margin:0 0 2rem; letter-spacing:-.01em; font-style:italic; }
 .hero-heading .accent-word { color:var(--accent); display:block; font-style:italic; }
 .hero-heading-line { display:block; font-style:italic; }
 .hero-sub { color:var(--text-muted); font-size:1rem; margin:.7rem 0 2rem; max-width:42ch; line-height:1.75; }
@@ -110,6 +110,15 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .home-card-title { font-family:var(--font-body); font-size:.94rem; font-weight:700; line-height:1.35; margin-bottom:.2rem; color:var(--text); }
 .home-card-count { font-family:var(--font-body); font-size:.62rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--text-subtle); }
 .home-card:hover .home-card-title { color:var(--accent); }
+
+/* ─ Calendario liturgico ───────────────────────────────── */
+.cal-card { display:flex; align-items:center; justify-content:space-between; gap:1rem; max-width:var(--max-w); margin:0 auto 1.4rem; padding:.85rem 1.3rem; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(12px); animation:fadeInUp .4s ease both; }
+.cal-left { display:flex; flex-direction:column; gap:.15rem; min-width:0; overflow:hidden; }
+.cal-season { font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--cal-accent, var(--accent)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cal-feast  { font-size:.88rem; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.5; }
+.cal-saint  { font-size:.82rem; color:var(--text); font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:1.5; }
+.cal-dot { width:14px; height:14px; border-radius:50%; background:var(--cal-accent, var(--accent)); flex-shrink:0; }
+.cal-card--loading .cal-skel { display:block; height:.75rem; border-radius:4px; background:rgba(180,170,230,.3); }
 
 /* ─ List items ────────────────────────────────────────────── */
 .list-item { display:flex; align-items:center; justify-content:space-between; padding:.95rem 1.2rem; gap:.6rem; cursor:pointer; background:var(--card); border:1.5px solid var(--border); border-left:4px solid transparent; border-radius:var(--radius); margin-bottom:.5rem; box-shadow:var(--shadow-xs); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transition:transform .2s,box-shadow .2s,border-color .2s,background .2s; }

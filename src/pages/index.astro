@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content'
 import Layout from '../layouts/Layout.astro'
 import { TOP_LEVEL_FOLDERS, FOLDERS } from '../data/folders'
+import CalendarioLiturgico from '../components/CalendarioLiturgico'
 
 const allPrayers = await getCollection('prayers')
 
@@ -13,20 +14,40 @@ function countInFolder(folderId: string) {
 }
 ---
 
-<Layout title="Spada dello Spirito" description="Spada dello Spirito è una raccolta di preghiere cattoliche: Santo Rosario guidato, Vangelo del giorno, Bibbia CEI, litanie e preghiere tradizionali della fede cristiana.">
+<Layout
+  title="Spada dello Spirito"
+  description="Spada dello Spirito è una raccolta di preghiere cattoliche: Santo Rosario guidato, Vangelo del giorno, Bibbia CEI, litanie e preghiere tradizionali della fede cristiana."
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Spada dello Spirito",
+    "url": "https://spadadellospirito.org",
+    "description": "Raccolta di preghiere cattoliche: Santo Rosario, Vangelo del giorno, Bibbia CEI e preghiere tradizionali.",
+    "inLanguage": "it",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://spadadellospirito.org/bibbia?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }}
+>
   <div class="hero">
     <span class="hero-eyebrow">✝ Raccolta di preghiere cattoliche</span>
     <h1 class="hero-heading">
       La fede è fondamento<br />di ciò che si spera,
       <span class="accent-word">prova di ciò che non si vede.</span>
     </h1>
-    <div class="hero-btns">
-      <a href="/rosario" class="btn btn-primary">🕊️ Santo Rosario</a>
-      <a href="/vangelo" class="btn btn-light">📖 Vangelo del giorno</a>
-      <a href="/bibbia"  class="btn btn-light">📜 Bibbia CEI</a>
+    <div class="hero-btns" style="margin-top:1.2rem">
+      <a href="/rosario"  class="btn btn-primary">🕊️ Santo Rosario</a>
+      <a href="/vangelo"  class="btn btn-light">📖 Vangelo del giorno</a>
+      <a href="/bibbia"   class="btn btn-light">📜 Bibbia CEI</a>
     </div>
   </div>
 
+  <CalendarioLiturgico client:load />
   <span class="section-label">Preghiere</span>
   <div class="home-grid">
     {TOP_LEVEL_FOLDERS.map((id, i) => {

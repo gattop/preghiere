@@ -2,6 +2,7 @@
 title: Preghiera del mattino
 folder: preghiere-quotidiane
 order: 1
+description: Preghiera del mattino con atti di fede, speranza e carità per offrire a Dio la giornata e ricevere la sua grazia.
 ---
 
 ### Atto di adorazione

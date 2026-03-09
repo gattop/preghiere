@@ -2,6 +2,7 @@
 title: Litanie a S. Emidio vescovo e martire
 folder: santi/sant-emidio/triduo-sant-emidio
 order: 4
+description: Litanie a Sant'Emidio vescovo e martire, protettore contro i terremoti e patrono di Ascoli Piceno. Festa il 5 agosto.
 ---
 
 <table>

@@ -2,6 +2,7 @@
 title: Preghiera della sera
 folder: preghiere-quotidiane
 order: 2
+description: Preghiera della sera per esaminare la coscienza, ringraziare Dio e affidarsi alla protezione della Vergine Maria.
 ---
 
 ### Atto di adorazione

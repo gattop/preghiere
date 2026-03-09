@@ -18,9 +18,19 @@ const { Content } = await render(prayer)
 const folderMeta = FOLDERS[prayer.data.folder]
 const folderTitle = folderMeta?.title ?? prayer.data.folder
 const folderUrl = `/cartella/${prayer.data.folder}`
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://spadadellospirito.org" },
+    { "@type": "ListItem", "position": 2, "name": folderTitle, "item": `https://spadadellospirito.org${folderUrl}` },
+    { "@type": "ListItem", "position": 3, "name": prayer.data.title, "item": `https://spadadellospirito.org/preghiera/${prayer.id.replace(/\.md$/, '')}` },
+  ]
+}
 ---
 
-<Layout title={prayer.data.title} description={prayer.data.description}>
+<Layout title={prayer.data.title} description={prayer.data.description} jsonLd={breadcrumbJsonLd}>
   <a href={folderUrl} class="back-link">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     {folderTitle}
@@ -28,7 +38,7 @@ const folderUrl = `/cartella/${prayer.data.folder}`
 
   <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
     <div style="flex:1">
-      <h2 style="text-align:left">{prayer.data.title}</h2>
+      <h1 style="text-align:left;font-size:clamp(1.3rem,4vw,1.75rem);font-weight:700;letter-spacing:-.01em">{prayer.data.title}</h1>
       {prayer.data.subtitle && <p class="prayer-subtitle">{prayer.data.subtitle}</p>}
       {prayer.data.description && <p class="prayer-description">{prayer.data.description}</p>}
     </div>

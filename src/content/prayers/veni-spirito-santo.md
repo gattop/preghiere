@@ -2,6 +2,7 @@
 title: Veni Santo Spirito
 folder: spirito-santo
 order: 1
+description: Vieni Santo Spirito (Veni Sancte Spiritus), preghiera tradizionale cattolica per invocare i sette doni dello Spirito Santo.
 ---
 
 > Vieni, Santo Spirito,

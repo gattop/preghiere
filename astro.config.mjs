@@ -21,6 +21,11 @@ export default defineConfig({
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/rss/, ''),
         },
+        '/api/cal': {
+          target: 'http://calapi.inadiutorium.cz',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/cal/, ''),
+        },
       },
     },
   },

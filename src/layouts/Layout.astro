@@ -4,11 +4,13 @@ import '../styles/global.css'
 interface Props {
   title?: string
   description?: string
+  jsonLd?: object | object[]
 }
 
 const {
   title = 'Spada dello Spirito',
   description = 'Raccolta di preghiere cattoliche con Rosario, Vangelo del giorno e Bibbia ricercabile.',
+  jsonLd,
 } = Astro.props
 
 const fullTitle = title.includes('Spada dello Spirito') ? title : `${title} — Spada dello Spirito`
@@ -22,6 +24,7 @@ const currentPath = Astro.url.pathname
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta property="og:site_name" content="Spada dello Spirito" />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -29,10 +32,12 @@ const currentPath = Astro.url.pathname
     <meta property="og:image" content="https://spadadellospirito.org/favicon/icon-512.png" />
     <meta property="og:image:width" content="512" />
     <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Logo Spada dello Spirito" />
     <meta property="og:locale" content="it_IT" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:image" content="https://spadadellospirito.org/favicon/icon-512.png" />
     <link rel="canonical" href={`https://spadadellospirito.org${currentPath}`} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <link rel="icon" type="image/png" href="/favicon/logo.png" />
     <!-- PWA -->
     <link rel="manifest" href="/manifest.webmanifest" />

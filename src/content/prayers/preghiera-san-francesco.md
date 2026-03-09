@@ -2,6 +2,7 @@
 title: Preghiera di San Francesco d'Assisi
 folder: santi/san-francesco-assisi
 order: 1
+description: La Preghiera di San Francesco d'Assisi, inno alla pace, alla carità e all'amore fraterno universale.
 ---
 
 > Signore, fa' di me uno strumento della tua pace.
