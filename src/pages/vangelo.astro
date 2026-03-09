@@ -26,7 +26,7 @@ import Layout from '../layouts/Layout.astro'
       root.innerHTML = `
         <article class="vangelo-card">
           <h2 class="vangelo-title">${escHtml(gospel.title)}</h2>
-          ${gospel.description ? `<div class="vangelo-body">${escHtml(gospel.description)}</div>` : ''}
+          ${gospel.description ? `<div class="vangelo-body">${gospel.description}</div>` : ''}
           <a class="vangelo-link" href="${escHtml(gospel.link)}" target="_blank" rel="noopener noreferrer">
             Leggi su Vatican News →
           </a>
