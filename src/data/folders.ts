@@ -22,8 +22,6 @@ export const FOLDERS: Record<string, FolderMeta> = {
     description: 'Preghiere ai santi della tradizione cattolica: San Michele Arcangelo, San Giuda Taddeo, San Francesco e altri.' },
   'credo':                  { title: 'Credo',                   icon: '🙏', order: 5,
     description: 'Il Credo Apostolico e il Simbolo Niceno-Costantinopolitano, professioni di fede della Chiesa cattolica.' },
-  'giubileo-2025':          { title: 'Giubileo 2025',           icon: '⛪', order: 6,
-    description: 'Preghiere ufficiali del Giubileo 2025 indette da Papa Francesco per l\'Anno Santo.' },
 
   // ─── Santi subfolders ─────────────────────────────────────────
   'santi/san-michele-arcangelo': { title: 'San Michele Arcangelo',  order: 1 },
@@ -45,5 +43,4 @@ export const TOP_LEVEL_FOLDERS = [
   'sacro-cuore',
   'santi',
   'credo',
-  'giubileo-2025',
 ]
