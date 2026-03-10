@@ -151,13 +151,13 @@ description: Litanie a Sant'Emidio vescovo e martire, protettore contro i terrem
     
 
     
-        Agnello di Dio, che togli i peccati del mondo, <i>perdonaci o Signore.</i>
+        Agnello di Dio, che togli i peccati del mondo, _perdonaci o Signore._
 
-        Agnello di Dio, che togli i peccati del mondo, <i>esaudiscici o Signore.</i>
+        Agnello di Dio, che togli i peccati del mondo, _esaudiscici o Signore._
 
-        Agnello di Dio, che togli i peccati del mondo, <i>abbi pietà di noi.</i><
+        Agnello di Dio, che togli i peccati del mondo, _abbi pietà di noi._
      
-        Prega per noi Sant'Emidio, vescovo e martire, <i>affinché saremo esauditi da Dio e resi degni delle promesse di Gesù Cristo.</i>
+        Prega per noi Sant'Emidio, vescovo e martire, _affinché saremo esauditi da Dio e resi degni delle promesse di Gesù Cristo._
     
 
     ###Preghiamo
