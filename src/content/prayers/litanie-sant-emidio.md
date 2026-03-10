@@ -157,7 +157,8 @@ Agnello di Dio, che togli i peccati del mondo, _abbi pietà di noi._
 Prega per noi Sant'Emidio, vescovo e martire, _affinché saremo esauditi da Dio e resi degni delle promesse di Gesù Cristo._
     
 
-###Preghiamo
+...preghiamo...\
+
     
 O Signore Dio nostro, ti rendiamo grazie per il tuo glorioso e santo vescovo e martire Emidio, nostro particolare protettore. Concedi a noi suoi devoti, ti supplichiamo, per i suoi meriti e la sua intercessione, di essere preservati dal flagello del terremoto e da qualunque altra calamità, per Gesù Cristo nostro Signore.
 
