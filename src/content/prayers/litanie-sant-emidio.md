@@ -148,21 +148,21 @@ description: Litanie a Sant'Emidio vescovo e martire, protettore contro i terrem
         </tr>
     </table>
 
-    <br>
-
-    <p>
-        <p>Agnello di Dio, che togli i peccati del mondo, <i>perdonaci o Signore.</i></p>
-        <p>Agnello di Dio, che togli i peccati del mondo, <i>esaudiscici o Signore.</i></p>
-        <p>Agnello di Dio, che togli i peccati del mondo, <i>abbi pietà di noi.</i></p>
-     </p>
     
-    <p>
+
+    
+        Agnello di Dio, che togli i peccati del mondo, <i>perdonaci o Signore.</i>
+
+        Agnello di Dio, che togli i peccati del mondo, <i>esaudiscici o Signore.</i>
+
+        Agnello di Dio, che togli i peccati del mondo, <i>abbi pietà di noi.</i><
+     
         Prega per noi Sant'Emidio, vescovo e martire, <i>affinché saremo esauditi da Dio e resi degni delle promesse di Gesù Cristo.</i>
-    </p>
+    
 
-    <h3>Preghiamo</h3>
-    <p>
+    ###Preghiamo
+    
         O Signore Dio nostro, ti rendiamo grazie per il tuo glorioso e santo vescovo e martire Emidio, nostro particolare protettore. Concedi a noi suoi devoti, ti supplichiamo, per i suoi meriti e la sua intercessione, di essere preservati dal flagello del terremoto e da qualunque altra calamità, per Gesù Cristo nostro Signore.
-    </p>
+    
 
-    <p><i>Amen.</i></p>
+    <i>Amen.</i>
