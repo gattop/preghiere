@@ -6,11 +6,12 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
   const [isFav, setIsFav] = useState(false)
 
   useEffect(() => {
+    if (!supabase) return
     supabase.auth.getSession().then(({ data }) => {
       const uid = data.session?.user.id ?? null
       setUserId(uid)
       if (uid) {
-        supabase
+        supabase!
           .from('favorites')
           .select('id')
           .eq('user_id', uid)
@@ -21,6 +22,8 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
     })
   }, [prayerId])
 
+  if (!supabase) return null
+
   async function toggle() {
     if (!userId) {
       window.location.href = '/accedi'
@@ -29,10 +32,10 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
     const prev = isFav
     setIsFav(!prev)
     if (prev) {
-      const { error } = await supabase.from('favorites').delete().eq('user_id', userId).eq('prayer_id', prayerId)
+      const { error } = await supabase!.from('favorites').delete().eq('user_id', userId).eq('prayer_id', prayerId)
       if (error) setIsFav(true)
     } else {
-      const { error } = await supabase.from('favorites').insert({ user_id: userId, prayer_id: prayerId })
+      const { error } = await supabase!.from('favorites').insert({ user_id: userId, prayer_id: prayerId })
       if (error) setIsFav(false)
     }
   }

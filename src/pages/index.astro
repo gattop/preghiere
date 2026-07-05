@@ -55,7 +55,7 @@ function countInFolder(folderId: string) {
       const meta = FOLDERS[id]
       const count = countInFolder(id)
       return (
-        <a href={`/cartella/${id}`} class="home-card" data-title={meta?.title ?? id} style={`animation-delay:${i * 0.07}s`}>
+        <a href={`/cartella/${id}`} class="home-card" data-title={meta?.title ?? id} style={`animation-delay:${i * 0.07}s${meta?.color ? `;--card-accent:${meta.color}` : ''}`}>
           <span class="home-card-icon">{meta?.icon ?? '🙏'}</span>
           <span class="home-card-title">{meta?.title ?? id}</span>
           <span class="home-card-count">{count} {count === 1 ? 'preghiera' : 'preghiere'}</span>

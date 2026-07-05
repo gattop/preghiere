@@ -6,21 +6,22 @@
 export interface FolderMeta {
   title: string
   icon?: string
+  color?: string
   description?: string
   order?: number
 }
 
 export const FOLDERS: Record<string, FolderMeta> = {
   // ─── Top-level ────────────────────────────────────────────────
-  'preghiere-quotidiane':   { title: 'Preghiere quotidiane',   icon: '🌅', order: 1,
+  'preghiere-quotidiane':   { title: 'Preghiere quotidiane',   icon: '🌅', color: '#F59E0B', order: 1,
     description: 'Preghiere cattoliche per il mattino e la sera: atti di fede, di speranza, di carità e di contrizione.' },
-  'spirito-santo':          { title: 'Spirito Santo',           icon: '🕊️', order: 2,
+  'spirito-santo':          { title: 'Spirito Santo',           icon: '🕊️', color: '#0EA5E9', order: 2,
     description: 'Preghiere allo Spirito Santo per invocare i suoi sette doni e la sua luce nella vita quotidiana.' },
-  'sacro-cuore':            { title: 'Sacro Cuore di Gesù',    icon: '❤️',  order: 3,
+  'sacro-cuore':            { title: 'Sacro Cuore di Gesù',    icon: '❤️',  color: '#EF4444', order: 3,
     description: 'Preghiere e coroncina al Sacro Cuore di Gesù, consacrazione e atti di riparazione.' },
-  'santi':                  { title: 'Santi',                   icon: '✨', order: 4,
+  'santi':                  { title: 'Santi',                   icon: '✨', color: '#D97706', order: 4,
     description: 'Preghiere ai santi della tradizione cattolica: San Michele Arcangelo, San Giuda Taddeo, San Francesco e altri.' },
-  'credo':                  { title: 'Credo',                   icon: '🙏', order: 5,
+  'credo':                  { title: 'Credo',                   icon: '🙏', color: '#6D28D9', order: 5,
     description: 'Il Credo Apostolico e il Simbolo Niceno-Costantinopolitano, professioni di fede della Chiesa cattolica.' },
 
   // ─── Santi subfolders ─────────────────────────────────────────

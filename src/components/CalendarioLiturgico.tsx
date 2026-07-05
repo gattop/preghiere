@@ -49,6 +49,15 @@ const COLOUR_IT: Record<string, string> = {
   black:  'nero',
 }
 
+const SEASON_THEME: Record<string, { accent: string; accentD: string; accentL: string; shadowAccent: string }> = {
+  advent:         { accent: '#7B6CF6', accentD: '#5A49D4', accentL: '#EDE9FF', shadowAccent: '0 6px 28px rgba(123,108,246,.32)' },
+  christmas:      { accent: '#B45309', accentD: '#92400E', accentL: '#FEF3C7', shadowAccent: '0 6px 28px rgba(180,83,9,.32)' },
+  ordinary:       { accent: '#059669', accentD: '#047857', accentL: '#D1FAE5', shadowAccent: '0 6px 28px rgba(5,150,105,.32)' },
+  lent:           { accent: '#6D28D9', accentD: '#4C1D95', accentL: '#EDE9FF', shadowAccent: '0 6px 28px rgba(109,40,217,.32)' },
+  easter_triduum: { accent: '#B91C1C', accentD: '#991B1B', accentL: '#FEE2E2', shadowAccent: '0 6px 28px rgba(185,28,28,.32)' },
+  easter:         { accent: '#D97706', accentD: '#B45309', accentL: '#FEF3C7', shadowAccent: '0 6px 28px rgba(217,119,6,.32)' },
+}
+
 export default function CalendarioLiturgico() {
   const [data, setData] = useState<CalendarDay | null>(null)
   const [loading, setLoading] = useState(true)
@@ -60,11 +69,23 @@ export default function CalendarioLiturgico() {
     const d = String(today.getDate()).padStart(2, '0')
     const cacheKey = `cal-${y}-${m}-${d}`
 
+    const applyTheme = (season: string) => {
+      const theme = SEASON_THEME[season]
+      if (!theme) return
+      const root = document.documentElement
+      root.style.setProperty('--accent', theme.accent)
+      root.style.setProperty('--accent-d', theme.accentD)
+      root.style.setProperty('--accent-l', theme.accentL)
+      root.style.setProperty('--shadow-accent', theme.shadowAccent)
+    }
+
     try {
       const cached = localStorage.getItem(cacheKey)
       if (cached) {
-        setData(JSON.parse(cached))
+        const parsed: CalendarDay = JSON.parse(cached)
+        setData(parsed)
         setLoading(false)
+        applyTheme(parsed.season)
         return
       }
     } catch {}
@@ -75,6 +96,7 @@ export default function CalendarioLiturgico() {
         try { localStorage.setItem(cacheKey, JSON.stringify(json)) } catch {}
         setData(json)
         setLoading(false)
+        applyTheme(json.season)
       })
       .catch(() => setLoading(false))
   }, [])
