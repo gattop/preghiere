@@ -135,12 +135,15 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .list-item:hover .list-item-icon { color:var(--accent); }
 .list-item-title { font-size:1em; font-weight:600; color:var(--text); }
 .list-item-icon { color:var(--text-subtle); flex-shrink:0; display:flex; align-items:center; gap:.4rem; transition:color .2s; }
+.list-item-left { display:flex; align-items:center; gap:.7rem; min-width:0; }
+.list-item-glyph { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:9px; background:rgba(123,108,246,.1); color:var(--accent); flex-shrink:0; }
+.list-item-title-wrap { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .folder-badge { font-size:.62rem; font-weight:700; background:var(--accent-l); color:var(--accent-d); padding:.1rem .45rem; border-radius:var(--radius-pill); border:1px solid rgba(123,108,246,.2); }
 
 /* ─ Prayer body ───────────────────────────────────────────── */
 .prayer-subtitle { text-align:center; color:var(--text-muted); font-size:.92em; margin-top:-.3rem; margin-bottom:1.4rem; font-style:italic; }
 .prayer-description { text-align:center; color:var(--text-muted); font-size:.93em; margin-bottom:.3rem; }
-.prayer-body { margin-top:.1rem; padding:.9rem 1.8rem 2rem; background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-body); font-size:1.08em; line-height:2.1; color:var(--text); overflow:hidden; }
+.prayer-body { margin:.3rem auto 0; padding:2.2rem 3rem 4rem; max-width:62ch; background:rgba(255,252,245,.96); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-serif); font-size:calc(1.13em * var(--prayer-scale, 1)); line-height:2.45; color:var(--text); overflow:hidden; }
 
 .prayer-body p { margin:1rem 0; }
 .prayer-body h3 { font-family:var(--font-body); font-size:.72em; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin:2rem 0 .65rem; }
@@ -151,7 +154,56 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .prayer-body td { padding:.55rem .75rem; border-bottom:1px solid var(--border-soft); font-size:.95em; vertical-align:top; }
 .prayer-body tr:hover td { background:var(--accent-l); }
 .prayer-body td:nth-child(2) { font-style:italic; color:var(--accent); }
-.prayer-body > p:first-of-type::first-letter { font-family:var(--font-serif); font-size:3.6em; font-weight:700; line-height:.75; float:left; margin:.05em .14em 0 0; color:var(--accent); }
+.prayer-body > p:first-of-type::first-letter { font-family:var(--font-serif); font-size:4em; font-weight:700; line-height:.75; float:left; margin:.05em .14em 0 0; color:var(--accent); }
+
+@media (max-width:560px) {
+  /* Litanie: da tabella a colonne impilate leggibili anche su schermi stretti */
+  .prayer-body table, .prayer-body tbody, .prayer-body tr, .prayer-body td { display:block; width:100%; }
+  .prayer-body tr { padding:.7rem 0; border-bottom:1px solid var(--border-soft); }
+  .prayer-body td { padding:.1rem 0; border-bottom:none; }
+  .prayer-body td:nth-child(2) { padding-left:.1rem; }
+}
+
+/* ─ Breadcrumb ────────────────────────────────────────────── */
+.breadcrumb { display:flex; flex-wrap:wrap; align-items:center; gap:.35rem; font-size:.72rem; font-weight:600; letter-spacing:.02em; color:var(--text-subtle); margin:0 0 .9rem; }
+.breadcrumb a { color:var(--text-subtle); text-decoration:none; transition:color .15s; }
+.breadcrumb a:hover { color:var(--accent); }
+.breadcrumb-sep { opacity:.55; }
+.breadcrumb-current { color:var(--text-muted); font-weight:700; }
+
+/* ─ Prayer header (title + actions) ──────────────────────── */
+.prayer-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.prayer-header-main { flex:1 1 240px; min-width:0; }
+.prayer-title { text-align:left; font-size:clamp(1.3rem,4vw,1.75rem); font-weight:700; letter-spacing:-.01em; }
+.prayer-actions { display:flex; gap:.4rem; align-items:center; padding-top:.5rem; flex-wrap:wrap; flex-shrink:0; }
+
+/* ─ Font size controls ───────────────────────────────────── */
+.font-size-controls { display:flex; align-items:center; gap:.1rem; background:rgba(255,255,255,.65); border:1.5px solid var(--border); border-radius:var(--radius-pill); padding:.2rem; }
+.font-size-btn { display:flex; align-items:center; justify-content:center; width:26px; height:26px; border:none; background:transparent; border-radius:50%; cursor:pointer; color:var(--text-muted); font-weight:800; font-size:.78rem; line-height:1; transition:background .15s,color .15s; touch-action:manipulation; }
+.font-size-btn:hover:not(:disabled) { background:rgba(123,108,246,.15); color:var(--accent); }
+.font-size-btn:disabled { opacity:.3; cursor:not-allowed; }
+
+@media (max-width:480px) {
+  .prayer-header { flex-direction:column; }
+  .prayer-actions { padding-top:0; width:100%; }
+}
+
+/* ─ Prev/next preghiera ───────────────────────────────────── */
+.prayer-siblings { display:flex; gap:.8rem; margin-top:1.8rem; }
+.prayer-sibling-link { flex:1; display:flex; flex-direction:column; gap:.25rem; padding:.85rem 1.1rem; background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; color:var(--text); box-shadow:var(--shadow-xs); transition:transform .18s,box-shadow .18s,border-color .18s; min-width:0; }
+.prayer-sibling-link:hover { transform:translateY(-2px); box-shadow:var(--shadow-sm); border-color:rgba(123,108,246,.35); }
+.prayer-sibling-link.next { text-align:right; align-items:flex-end; }
+.prayer-sibling-label { font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-subtle); }
+.prayer-sibling-title { font-size:.86rem; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:100%; }
+@media (max-width:520px) { .prayer-siblings { flex-direction:column; } .prayer-sibling-link.next { text-align:left; align-items:flex-start; } }
+
+/* ─ Print ─────────────────────────────────────────────────── */
+@media print {
+  .site-header, .back-link, .breadcrumb, .prayer-actions, .prayer-siblings, .site-footer { display:none !important; }
+  body { background:#fff !important; }
+  .prayer-body { box-shadow:none !important; border:none !important; background:#fff !important; backdrop-filter:none !important; padding:0 !important; }
+  .page-wrap { padding:0 !important; max-width:100% !important; }
+}
 
 /* ─ Buttons ───────────────────────────────────────────────── */
 .btn { font-family:var(--font-body); font-size:.78rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:.72rem 1.55rem; border-radius:var(--radius-pill); cursor:pointer; border:none; display:inline-flex; align-items:center; gap:.4rem; white-space:nowrap; transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,filter .15s; text-decoration:none; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
@@ -176,18 +228,19 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .back-link:active { transform:scale(.96); transition-duration:.08s; }
 
 /* ─ Favorite button ───────────────────────────────────────── */
-.fav-btn { background:none; border:none; cursor:pointer; font-size:1.3rem; padding:.3rem; border-radius:8px; transition:transform .2s cubic-bezier(.34,1.56,.64,1); line-height:1; touch-action:manipulation; }
-.fav-btn:hover { transform:scale(1.25); }
-.fav-btn.active { animation:heartBeat .5s cubic-bezier(.34,1.56,.64,1); }
-.share-btn { display:none; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:color .18s,transform .18s; }
-.share-btn:hover { color:var(--accent); transform:scale(1.15); }
+.fav-btn { display:flex; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:transform .2s cubic-bezier(.34,1.56,.64,1),color .18s,opacity .18s; line-height:1; touch-action:manipulation; }
+.fav-btn:hover { transform:scale(1.2); color:#EF4444; }
+.fav-btn.active { color:#EF4444; animation:heartBeat .5s cubic-bezier(.34,1.56,.64,1); }
+.fav-btn.is-loading { opacity:.35; pointer-events:none; }
+.share-btn, .print-btn { display:none; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:color .18s,transform .18s; }
+.share-btn:hover, .print-btn:hover { color:var(--accent); transform:scale(1.15); }
 
-/* ─ Reading mode toggle ───────────────────────────────────── */
-.read-toggle { display:inline-flex; align-items:center; gap:.35rem; font-size:.7rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); background:rgba(255,255,255,.65); border:1.5px solid var(--border); border-radius:var(--radius-pill); padding:.38rem .85rem; cursor:pointer; transition:color .18s,background .18s,border-color .18s; touch-action:manipulation; flex-shrink:0; }
-.read-toggle:hover,.read-toggle.active { color:var(--accent); background:rgba(255,255,255,.88); border-color:rgba(123,108,246,.3); }
-.prayer-body.is-reading { font-family:var(--font-serif); font-size:1.13em; line-height:2.45; padding:2.2rem 3rem 4rem; max-width:62ch; margin:.3rem auto; background:rgba(255,252,245,.96); }
-.prayer-body.is-reading > p:first-of-type::first-letter { font-size:4em; }
-@media (max-width:600px) { .prayer-body.is-reading { padding:1.6rem 1.4rem 3rem; max-width:100%; } }
+/* ─ Prayed-today button ──────────────────────────────────── */
+.prayed-btn { display:inline-flex; align-items:center; gap:.35rem; background:none; border:1.5px solid var(--border); border-radius:var(--radius-pill); cursor:pointer; font-size:.68rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:.38rem .7rem; color:var(--text-muted); transition:background .18s,color .18s,border-color .18s; touch-action:manipulation; flex-shrink:0; }
+.prayed-btn:hover { color:var(--accent); border-color:rgba(123,108,246,.3); }
+.prayed-btn.active { background:var(--accent-l); border-color:var(--accent); color:var(--accent-d); }
+.prayed-btn.active svg { animation:popIn .3s ease both; }
+.prayed-btn.is-loading { opacity:.45; pointer-events:none; }
 
 /* ─ Spinner ───────────────────────────────────────────────── */
 .spinner { width:36px; height:36px; border:3px solid rgba(123,108,246,.2); border-top-color:var(--accent); border-radius:50%; animation:spin .7s linear infinite; margin:2rem auto; }
@@ -224,20 +277,75 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 
 /* ─ Rosario ───────────────────────────────────────────────── */
 .rosario-page { min-height:100dvh; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.6rem; padding:2rem 1rem; text-align:center; background:linear-gradient(145deg,#BDD0EE 0%,#CCBFED 28%,#E8BFDA 62%,#F5CEBC 100%); user-select:none; }
-.rosario-text, .mistero-card { user-select:text; }
-.rosario-text { font-family:var(--font-body); font-size:clamp(1.28rem,4vw,1.72rem); color:var(--text); line-height:2.1; max-width:560px; text-align:center; padding:1.8rem 2.4rem; background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); animation:rosarioFade .38s cubic-bezier(.22,.68,0,1.1) both; }
+.rosario-text, .mistero-card, .decina-card { user-select:text; }
+
+/* Aspetto comune a tutte le card di contenuto (mistero, testo, decina) */
+.rosario-text, .mistero-card, .decina-card {
+  background:rgba(255,255,255,.82); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+  animation:rosarioFade .38s cubic-bezier(.22,.68,0,1.1) both;
+}
+.rosario-text { font-family:var(--font-body); font-size:clamp(1.28rem,4vw,1.72rem); color:var(--text); line-height:2.1; max-width:560px; text-align:center; padding:1.8rem 2.4rem; }
 .rosario-hint { font-size:.74rem; color:var(--text-subtle); letter-spacing:.04em; text-transform:uppercase; font-weight:500; }
-.rosario-nav { display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; padding:1rem 0 .5rem; border-bottom:1px solid var(--border-soft); margin-bottom:1.5rem; }
-.rosario-btn { font-size:.75rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; padding:.5rem 1rem; border-radius:var(--radius-pill); cursor:pointer; border:1.5px solid var(--border-soft); background:rgba(255,255,255,.55); color:var(--text-muted); transition:background .18s,color .18s,border-color .18s,transform .12s,opacity .18s; touch-action:manipulation; outline:none; }
+
+/* ─ Navigazione: Avanti enorme e dominante, Indietro piccolo/secondario ─ */
+.rosario-nav { display:flex; align-items:stretch; gap:.75rem; flex-wrap:wrap; justify-content:center; padding:1.2rem 0 .6rem; border-bottom:1px solid var(--border-soft); margin-bottom:1.5rem; width:100%; max-width:640px; }
+.rosario-btn {
+  font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  border-radius:var(--radius-pill); cursor:pointer; border:1.5px solid var(--border-soft);
+  background:rgba(255,255,255,.55); color:var(--text-muted);
+  transition:background .18s,color .18s,border-color .18s,transform .12s,opacity .18s;
+  touch-action:manipulation; outline:none;
+}
 .rosario-btn.active,.rosario-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
 .rosario-btn:focus-visible { box-shadow:0 0 0 3px rgba(123,108,246,.3); }
-.rosario-btn:active:not(:disabled) { transform:scale(.94); }
+.rosario-btn:active:not(:disabled) { transform:scale(.96); }
 .rosario-btn:disabled { opacity:.3; cursor:not-allowed; pointer-events:none; }
-.mistero-card { background:var(--card); border:1.5px solid var(--border); border-radius:var(--radius-lg); padding:1.4rem 1.6rem; margin-bottom:1rem; box-shadow:var(--shadow-xs); backdrop-filter:blur(10px); }
-.mistero-title { font-weight:700; font-size:1.02em; color:var(--text); margin-bottom:.25rem; }
-.ave-beads { display:flex; flex-wrap:wrap; gap:.35rem; justify-content:center; max-width:340px; }
-.ave-bead { display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; font-size:.7rem; font-weight:700; border:2px solid rgba(180,170,230,.4); background:rgba(255,255,255,.6); color:var(--text-muted); transition:all .2s; }
-.ave-bead.done { background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* Indietro: piccolo, defilato — non deve competere con Avanti */
+.rosario-btn-back { flex:0 0 auto; min-width:100px; padding:.8rem 1.1rem; font-size:.7rem; }
+
+/* Avanti/Fine: l'azione principale, sempre enorme */
+.rosario-btn-next, .rosario-btn-end {
+  flex:1 1 auto; min-height:76px; padding:1.4rem 2rem; font-size:1.15rem; letter-spacing:.03em;
+  box-shadow:0 10px 32px rgba(123,108,246,.45);
+}
+
+@media (min-width:641px) {
+  .rosario-btn-back { min-width:120px; padding:1rem 1.6rem; font-size:.78rem; }
+  .rosario-btn-next, .rosario-btn-end { min-height:92px; font-size:1.4rem; padding:1.7rem 3.5rem; }
+}
+
+/* ─ Mobile: "Avanti" fissato in basso, a piena larghezza, impossibile da mancare ─ */
+@media (max-width:640px) {
+  .rosario-page { padding-bottom:7.5rem; }
+  .rosario-nav {
+    position:fixed; left:0; right:0; bottom:0; z-index:50; max-width:none;
+    margin:0; border-bottom:none; border-top:1px solid var(--border-soft);
+    background:rgba(255,255,255,.92); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 -8px 28px rgba(100,80,180,.14);
+    padding:.7rem .8rem calc(.7rem + env(safe-area-inset-bottom));
+    gap:.6rem;
+  }
+  .rosario-btn-back {
+    flex:0 0 auto; width:4.2rem; min-width:0; min-height:76px; padding:0;
+    font-size:.66rem; background:rgba(255,255,255,.5); color:var(--text-subtle); box-shadow:none;
+  }
+  .rosario-btn-next, .rosario-btn-end { min-height:76px; }
+  .rosario-hint { display:none; }
+}
+
+.mistero-card { max-width:560px; width:100%; padding:1.8rem 2.4rem; }
+.mistero-title { font-weight:700; font-size:1.15em; line-height:1.5; color:var(--text); }
+
+/* Tutte le preghiere della decina in un'unica box, separate solo da spazio vuoto */
+.decina-card { display:flex; flex-direction:column; gap:.9rem; max-width:560px; width:100%; padding:1.6rem 2rem; }
+.decina-parte-label { font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--accent); margin-bottom:.2rem; }
+.decina-parte-text { font-family:var(--font-body); font-size:clamp(1.1rem,3.2vw,1.4rem); line-height:1.65; color:var(--text); text-align:center; }
+
+@media (max-width:480px) {
+  .rosario-text, .mistero-card, .decina-card { padding:1.3rem 1.4rem; }
+}
 .progress-bar { height:4px; background:rgba(180,170,230,.35); border-radius:2px; overflow:hidden; margin-bottom:.4rem; width:100%; max-width:560px; }
 .progress-fill { height:100%; background:var(--accent); border-radius:2px; transition:width .4s ease; }
 
@@ -256,7 +364,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
   .page-wrap { padding:1.4rem .75rem 4rem; }
   .hero { padding:1rem 0 2rem; }
   .hero-heading { font-size:clamp(2rem,10vw,3rem); }
-  .prayer-body { padding:1.2rem 1.2rem 1.6rem; }
+  .prayer-body { padding:1.6rem 1.4rem 3rem; max-width:100%; }
   .auth-card { padding:1.8rem 1.4rem; }
   .back-link { margin-bottom:1rem; }
 }
@@ -323,8 +431,8 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 
 /* ─ Rosario header / extras ───────────────────────────────── */
 .rosario-header { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:560px; gap:1rem; }
-.rosario-home-link { font-size:1.4rem; text-decoration:none; color:var(--accent); opacity:.8; transition:opacity .18s; }
-.rosario-home-link:hover { opacity:1; }
+.rosario-home-link { display:inline-flex; align-items:center; gap:.35rem; font-size:.78rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; text-decoration:none; color:var(--text-muted); opacity:.85; transition:opacity .18s,color .18s; }
+.rosario-home-link:hover { opacity:1; color:var(--accent); }
 .rosario-oggi  { font-size:.82rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
 .rosario-counter { font-size:.82rem; color:var(--text-subtle); min-width:3.5rem; text-align:right; }
 .rosario-body  { display:flex; flex-direction:column; align-items:center; gap:1rem; width:100%; max-width:560px; }

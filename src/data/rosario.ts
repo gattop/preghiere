@@ -115,8 +115,6 @@ export const misteri: Record<string, GruppoMisteri> = {
 }
 
 export const preghiereRosario = {
-  segnoDelCroce: 'Nel nome del Padre, del Figlio e dello Spirito Santo. Amen.',
-  credoApostolico: 'Credo in Dio, Padre onnipotente...',
   padreNostro: 'Padre nostro che sei nei cieli...',
   aveMaria: 'Ave, o Maria, piena di grazia...',
   gloria: 'Gloria al Padre e al Figlio e allo Spirito Santo...',
@@ -124,36 +122,41 @@ export const preghiereRosario = {
   salveRegina: 'Salve, Regina, Madre di misericordia...',
 }
 
+export interface RosarioStepPart {
+  label: string
+  testo: string
+  volte?: number
+}
+
 export interface RosarioStep {
   tipo: string
   testo: string
   descrizione?: string
-  aveIniziale?: number
   decina?: number
-  aveNumber?: number
   misteroIndex?: number
+  parti?: RosarioStepPart[]
 }
 
 export function buildRosarioSequence(dayOfWeek: number): RosarioStep[] {
   const chiave = misteriPerGiorno[dayOfWeek]
   const misteriDelGiorno = misteri[chiave]
   const p = preghiereRosario
-  const seq: RosarioStep[] = [
-    { tipo: 'segnoDelCroce', testo: p.segnoDelCroce },
-    { tipo: 'credo', testo: p.credoApostolico },
-    { tipo: 'padreNostro', testo: p.padreNostro },
-    { tipo: 'aveMaria', testo: p.aveMaria, descrizione: '1ª Ave Maria', aveIniziale: 1 },
-    { tipo: 'aveMaria', testo: p.aveMaria, descrizione: '2ª Ave Maria', aveIniziale: 2 },
-    { tipo: 'aveMaria', testo: p.aveMaria, descrizione: '3ª Ave Maria', aveIniziale: 3 },
-    { tipo: 'gloria', testo: p.gloria },
-  ]
+  const seq: RosarioStep[] = []
   for (let d = 0; d < 5; d++) {
     seq.push({ tipo: 'mistero', testo: `${d + 1}° Mistero: ${misteriDelGiorno.lista[d].titolo}`, misteroIndex: d })
     seq.push({ tipo: 'descrizione', testo: misteriDelGiorno.lista[d].descrizione, misteroIndex: d })
-    seq.push({ tipo: 'padreNostro', testo: p.padreNostro })
-    for (let a = 0; a < 10; a++) seq.push({ tipo: 'aveMaria', testo: p.aveMaria, decina: d, aveNumber: a + 1 })
-    seq.push({ tipo: 'gloria', testo: p.gloria })
-    seq.push({ tipo: 'fatima', testo: p.preghieraFatima })
+    seq.push({
+      tipo: 'decina',
+      testo: '',
+      decina: d,
+      misteroIndex: d,
+      parti: [
+        { label: 'Padre Nostro', testo: p.padreNostro },
+        { label: 'Ave Maria', testo: p.aveMaria, volte: 10 },
+        { label: 'Gloria', testo: p.gloria },
+        { label: 'Preghiera di Fatima', testo: p.preghieraFatima },
+      ],
+    })
   }
   seq.push({ tipo: 'salveRegina', testo: p.salveRegina })
   return seq

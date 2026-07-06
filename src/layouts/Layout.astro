@@ -113,7 +113,7 @@ const currentPath = Astro.url.pathname
     </main>
 
     <footer class="site-footer">
-      <p>Web App Cattolica by <a href="https://martarelli.cc" target="_blank" rel="noopener noreferrer">Tommaso Martarelli</a></p>
+      <p>Web App Cattolica by <a href="https://gattp.it" target="_blank" rel="noopener noreferrer">Tommaso Martarelli</a></p>
     </footer>
   </body>
 </html>
@@ -169,8 +169,9 @@ const currentPath = Astro.url.pathname
     window.location.href = '/'
   })
 
-  // ─ Service Worker registration ──────────────────────────
-  if ('serviceWorker' in navigator) {
+  // ─ Service Worker registration (solo in produzione: evita cache stantia in dev) ──
+  const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  if ('serviceWorker' in navigator && !isLocalDev) {
     navigator.serviceWorker.register('/sw.js')
   }
 </script>

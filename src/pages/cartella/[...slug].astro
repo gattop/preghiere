@@ -50,6 +50,12 @@ function countInSubfolder(id: string) {
 const parts = folderId.split('/')
 const parentPath = parts.length > 1 ? `/cartella/${parts.slice(0, -1).join('/')}` : '/'
 
+// Breadcrumb: un crumb per ogni livello, escluso quello corrente (già nel titolo h1)
+const breadcrumbFolders = parts.slice(0, -1).map((_, i) => {
+  const path = parts.slice(0, i + 1).join('/')
+  return { title: FOLDERS[path]?.title ?? path.split('/').pop(), url: `/cartella/${path}` }
+})
+
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -61,6 +67,18 @@ const breadcrumbJsonLd = {
 ---
 
 <Layout title={`${title} — Preghiere`} description={description} jsonLd={breadcrumbJsonLd}>
+  <nav class="breadcrumb" aria-label="Percorso">
+    <a href="/">Home</a>
+    {breadcrumbFolders.map(b => (
+      <>
+        <span class="breadcrumb-sep">›</span>
+        <a href={b.url}>{b.title}</a>
+      </>
+    ))}
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current" aria-current="page">{title}</span>
+  </nav>
+
   <a href={parentPath} class="back-link">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     Indietro
@@ -76,7 +94,14 @@ const breadcrumbJsonLd = {
     return (
       <a href={`/cartella/${subId}`} style="text-decoration:none">
         <div class="list-item">
-          <span class="list-item-title">{subTitle}</span>
+          <span class="list-item-left">
+            <span class="list-item-glyph" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/></svg>
+            </span>
+            <span class="list-item-title-wrap">
+              <span class="list-item-title">{subTitle}</span>
+            </span>
+          </span>
           <span class="list-item-icon">
             <span class="folder-badge">{count}</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -89,7 +114,14 @@ const breadcrumbJsonLd = {
   {directPrayers.map(prayer => (
     <a href={`/preghiera/${prayer.id.replace(/\.md$/, '')}`} style="text-decoration:none">
       <div class="list-item">
-        <span class="list-item-title">{prayer.data.title}</span>
+        <span class="list-item-left">
+          <span class="list-item-glyph" aria-hidden="true">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
+          <span class="list-item-title-wrap">
+            <span class="list-item-title">{prayer.data.title}</span>
+          </span>
+        </span>
         <span class="list-item-icon">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
         </span>
@@ -98,6 +130,12 @@ const breadcrumbJsonLd = {
   ))}
 
   {subfolderIds.length === 0 && directPrayers.length === 0 && (
-    <p class="empty">Nessuna preghiera in questa cartella.</p>
+    <div class="empty-state">
+      <p>Nessuna preghiera in questa cartella.</p>
+      <div style="display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center">
+        <a href={parentPath} class="btn btn-secondary">Torna indietro</a>
+        <a href="/proposta" class="btn btn-primary">Proponi una preghiera</a>
+      </div>
+    </div>
   )}
 </Layout>

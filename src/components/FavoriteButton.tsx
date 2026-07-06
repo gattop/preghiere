@@ -4,6 +4,7 @@ import { supabase } from '../lib/supabase'
 export default function FavoriteButton({ prayerId }: { prayerId: string }) {
   const [userId, setUserId] = useState<string | null>(null)
   const [isFav, setIsFav] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     if (!supabase) return
@@ -17,7 +18,12 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
           .eq('user_id', uid)
           .eq('prayer_id', prayerId)
           .maybeSingle()
-          .then(({ data: fav }) => setIsFav(!!fav))
+          .then(({ data: fav }) => {
+            setIsFav(!!fav)
+            setReady(true)
+          })
+      } else {
+        setReady(true)
       }
     })
   }, [prayerId])
@@ -42,13 +48,15 @@ export default function FavoriteButton({ prayerId }: { prayerId: string }) {
 
   return (
     <button
-      className={`fav-btn${isFav ? ' active' : ''}`}
+      className={`fav-btn${isFav ? ' active' : ''}${!ready ? ' is-loading' : ''}`}
       onClick={toggle}
       aria-pressed={isFav}
       title={isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
       aria-label={isFav ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
     >
-      {isFav ? '❤️' : '🤍'}
+      <svg width="19" height="19" viewBox="0 0 24 24" fill={isFav ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
     </button>
   )
 }

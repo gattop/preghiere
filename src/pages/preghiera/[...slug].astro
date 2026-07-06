@@ -3,22 +3,38 @@ import { getCollection, render } from 'astro:content'
 import Layout from '../../layouts/Layout.astro'
 import { FOLDERS } from '../../data/folders'
 import FavoriteButton from '../../components/FavoriteButton'
+import PrayedTodayButton from '../../components/PrayedTodayButton'
 
 export async function getStaticPaths() {
   const prayers = await getCollection('prayers')
-  return prayers.map(prayer => ({
-    params: { slug: prayer.id.replace(/\.md$/, '') },
-    props: { prayer },
-  }))
+  return prayers.map(prayer => {
+    const siblings = prayers
+      .filter(p => p.data.folder === prayer.data.folder)
+      .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
+    const idx = siblings.findIndex(p => p.id === prayer.id)
+    const prev = idx > 0 ? siblings[idx - 1] : null
+    const next = idx < siblings.length - 1 ? siblings[idx + 1] : null
+    return {
+      params: { slug: prayer.id.replace(/\.md$/, '') },
+      props: { prayer, prev, next },
+    }
+  })
 }
 
-const { prayer } = Astro.props
+const { prayer, prev, next } = Astro.props
 const { Content } = await render(prayer)
 const prayerId = prayer.id.replace(/\.md$/, '')
 
 const folderMeta = FOLDERS[prayer.data.folder]
 const folderTitle = folderMeta?.title ?? prayer.data.folder
 const folderUrl = `/cartella/${prayer.data.folder}`
+
+// Breadcrumb: un crumb per ogni livello della cartella (Home > ... > cartella corrente)
+const folderParts = prayer.data.folder.split('/')
+const breadcrumbFolders = folderParts.map((_, i) => {
+  const path = folderParts.slice(0, i + 1).join('/')
+  return { title: FOLDERS[path]?.title ?? path.split('/').pop(), url: `/cartella/${path}` }
+})
 
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
@@ -32,23 +48,43 @@ const breadcrumbJsonLd = {
 ---
 
 <Layout title={prayer.data.title} description={prayer.data.description} jsonLd={breadcrumbJsonLd}>
+  <nav class="breadcrumb" aria-label="Percorso">
+    <a href="/">Home</a>
+    {breadcrumbFolders.map(b => (
+      <>
+        <span class="breadcrumb-sep">›</span>
+        <a href={b.url}>{b.title}</a>
+      </>
+    ))}
+    <span class="breadcrumb-sep">›</span>
+    <span class="breadcrumb-current" aria-current="page">{prayer.data.title}</span>
+  </nav>
+
   <a href={folderUrl} class="back-link">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
     {folderTitle}
   </a>
 
-  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem">
-    <div style="flex:1">
-      <h1 style="text-align:left;font-size:clamp(1.3rem,4vw,1.75rem);font-weight:700;letter-spacing:-.01em">{prayer.data.title}</h1>
+  <div class="prayer-header">
+    <div class="prayer-header-main">
+      <h1 class="prayer-title">{prayer.data.title}</h1>
       {prayer.data.subtitle && <p class="prayer-subtitle">{prayer.data.subtitle}</p>}
       {prayer.data.description && <p class="prayer-description">{prayer.data.description}</p>}
     </div>
-    <div style="display:flex;gap:.5rem;align-items:center;padding-top:.5rem">
-      <button class="read-toggle" id="read-toggle" aria-pressed="false" title="Modalità lettura">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Lettura
-      </button>
+    <div class="prayer-actions">
+      <div class="font-size-controls" role="group" aria-label="Dimensione testo">
+        <button class="font-size-btn" id="font-size-dec" title="Testo più piccolo" aria-label="Testo più piccolo">A−</button>
+        <button class="font-size-btn" id="font-size-inc" title="Testo più grande" aria-label="Testo più grande">A+</button>
+      </div>
       <FavoriteButton prayerId={prayerId} client:visible />
+      <button
+        class="print-btn"
+        id="print-btn"
+        title="Stampa"
+        aria-label="Stampa questa preghiera"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      </button>
       <button
         class="share-btn"
         id="share-btn"
@@ -61,9 +97,30 @@ const breadcrumbJsonLd = {
     </div>
   </div>
 
+  <div style="display:flex;justify-content:flex-end;margin-bottom:.6rem">
+    <PrayedTodayButton prayerId={prayerId} client:visible />
+  </div>
+
   <div class="prayer-body">
     <Content />
   </div>
+
+  {(prev || next) && (
+    <div class="prayer-siblings">
+      {prev ? (
+        <a href={`/preghiera/${prev.id.replace(/\.md$/, '')}`} class="prayer-sibling-link prev">
+          <span class="prayer-sibling-label">← Precedente</span>
+          <span class="prayer-sibling-title">{prev.data.title}</span>
+        </a>
+      ) : <span />}
+      {next ? (
+        <a href={`/preghiera/${next.id.replace(/\.md$/, '')}`} class="prayer-sibling-link next">
+          <span class="prayer-sibling-label">Successiva →</span>
+          <span class="prayer-sibling-title">{next.data.title}</span>
+        </a>
+      ) : <span />}
+    </div>
+  )}
 </Layout>
 
 <script>
@@ -80,20 +137,30 @@ const breadcrumbJsonLd = {
 </script>
 
 <script>
-  const toggle = document.getElementById('read-toggle') as HTMLButtonElement | null
-  const prayerBody = document.querySelector('.prayer-body')
-  if (toggle && prayerBody) {
-    const active = localStorage.getItem('prayer-reading-mode') === '1'
-    if (active) {
-      prayerBody.classList.add('is-reading')
-      toggle.classList.add('active')
-      toggle.setAttribute('aria-pressed', 'true')
+  // ─ Dimensione testo (persistita, applicata via --prayer-scale) ──
+  const SCALES = [0.85, 0.9, 1, 1.1, 1.2, 1.3]
+  const decBtn = document.getElementById('font-size-dec') as HTMLButtonElement | null
+  const incBtn = document.getElementById('font-size-inc') as HTMLButtonElement | null
+  const body = document.querySelector('.prayer-body') as HTMLElement | null
+
+  if (decBtn && incBtn && body) {
+    let idx = SCALES.indexOf(1)
+    const saved = parseFloat(localStorage.getItem('prayer-font-scale') ?? '')
+    if (!Number.isNaN(saved) && SCALES.includes(saved)) idx = SCALES.indexOf(saved)
+
+    function apply() {
+      body!.style.setProperty('--prayer-scale', String(SCALES[idx]))
+      decBtn!.disabled = idx === 0
+      incBtn!.disabled = idx === SCALES.length - 1
+      localStorage.setItem('prayer-font-scale', String(SCALES[idx]))
     }
-    toggle.addEventListener('click', () => {
-      const on = prayerBody.classList.toggle('is-reading')
-      toggle.classList.toggle('active', on)
-      toggle.setAttribute('aria-pressed', String(on))
-      localStorage.setItem('prayer-reading-mode', on ? '1' : '0')
-    })
+
+    decBtn.addEventListener('click', () => { idx = Math.max(0, idx - 1); apply() })
+    incBtn.addEventListener('click', () => { idx = Math.min(SCALES.length - 1, idx + 1); apply() })
+    apply()
   }
+</script>
+
+<script>
+  document.getElementById('print-btn')?.addEventListener('click', () => window.print())
 </script>

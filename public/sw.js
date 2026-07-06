@@ -1,4 +1,4 @@
-const CACHE_NAME = 'spada-v2'
+const CACHE_NAME = 'spada-v3'
 
 const PRECACHE_URLS = [
   '/',

@@ -2,25 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { buildRosarioSequence, misteriPerGiorno, misteri, type RosarioStep } from '../data/rosario'
 
 const TIPO_LABEL: Record<string, string> = {
-  segnoDelCroce: 'Segno della Croce',
-  credo: 'Credo Apostolico',
-  padreNostro: 'Padre Nostro',
-  aveMaria: 'Ave Maria',
-  gloria: 'Gloria',
-  fatima: 'Preghiera di Fatima',
+  decina: '1 Padre Nostro, 10 Ave Maria, 1 Gloria, Preghiera di Fatima',
   mistero: 'Mistero',
   descrizione: 'Meditazione',
   salveRegina: 'Salve Regina',
-}
-
-function getStepCount(step: RosarioStep, total: number, index: number): string {
-  if (step.tipo === 'aveMaria' && step.decina !== undefined) {
-    return `${step.aveNumber}/10`
-  }
-  if (step.tipo === 'aveMaria' && step.aveIniziale !== undefined) {
-    return `${step.aveIniziale}/3`
-  }
-  return `${index + 1} / ${total}`
 }
 
 export default function RosarioPlayer() {
@@ -55,16 +40,15 @@ export default function RosarioPlayer() {
   const isLast = current === steps.length - 1
   const progress = ((current + 1) / steps.length) * 100
 
-  // Ave Maria beads for a decade
-  const showBeads = step.tipo === 'aveMaria' && step.decina !== undefined
-  const beadCount = step.aveNumber ?? 0
-
   return (
     <div className="rosario-page">
       <div className="rosario-header">
-        <a href="/" className="rosario-home-link" title="Torna alla home">✝</a>
+        <a href="/" className="rosario-home-link" title="Esci dal Rosario">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          Esci
+        </a>
         <span className="rosario-oggi">{nomeOggi}</span>
-        <span className="rosario-counter">{getStepCount(step, steps.length, current)}</span>
+        <span className="rosario-counter">{current + 1} / {steps.length}</span>
       </div>
 
       <div className="progress-bar">
@@ -78,21 +62,22 @@ export default function RosarioPlayer() {
           <div className="mistero-card">
             <p className="mistero-title">{step.testo}</p>
           </div>
-        ) : (
-          <p className="rosario-text">{step.testo}</p>
-        )}
-
-        {showBeads && (
-          <div className="ave-beads">
-            {Array.from({ length: 10 }, (_, i) => (
-              <span key={i} className={`ave-bead${i < beadCount ? ' done' : ''}`} />
+        ) : step.tipo === 'decina' && step.parti ? (
+          <div className="decina-card">
+            {step.parti.map((parte, i) => (
+              <div className="decina-parte" key={i}>
+                <p className="decina-parte-label">{parte.volte && parte.volte > 1 ? `${parte.volte}× ` : ''}{parte.label}</p>
+                <p className="decina-parte-text">{parte.testo}</p>
+              </div>
             ))}
           </div>
+        ) : (
+          <p className="rosario-text">{step.testo}</p>
         )}
       </div>
 
       <div className="rosario-nav">
-        <button className="rosario-btn" onClick={prev} disabled={isFirst}>← Indietro</button>
+        <button className="rosario-btn rosario-btn-back" onClick={prev} disabled={isFirst}>← Indietro</button>
         {isLast ? (
           <a href="/" className="rosario-btn rosario-btn-end">Fine ✝</a>
         ) : (

@@ -40,7 +40,8 @@ import RosarioPlayer from '../components/RosarioPlayer'
 </html>
 
 <script>
-  if ('serviceWorker' in navigator) {
+  const isLocalDev = ['localhost', '127.0.0.1'].includes(window.location.hostname)
+  if ('serviceWorker' in navigator && !isLocalDev) {
     navigator.serviceWorker.register('/sw.js')
   }
 </script>
