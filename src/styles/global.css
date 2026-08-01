@@ -143,7 +143,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 /* ─ Prayer body ───────────────────────────────────────────── */
 .prayer-subtitle { text-align:center; color:var(--text-muted); font-size:.92em; margin-top:-.3rem; margin-bottom:1.4rem; font-style:italic; }
 .prayer-description { text-align:center; color:var(--text-muted); font-size:.93em; margin-bottom:.3rem; }
-.prayer-body { margin:.3rem auto 0; padding:2.2rem 3rem 4rem; max-width:62ch; background:rgba(255,252,245,.96); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-serif); font-size:calc(1.13em * var(--prayer-scale, 1)); line-height:2.45; color:var(--text); overflow:hidden; }
+.prayer-body { margin:0 auto; padding:2.2rem 3rem 4rem; max-width:62ch; background:rgba(255,252,245,.96); border:1.5px solid rgba(255,255,255,.92); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); backdrop-filter:blur(14px); font-family:var(--font-serif); font-size:calc(1.13em * var(--prayer-scale, 1)); line-height:2.45; color:var(--text); overflow:hidden; }
 
 .prayer-body p { margin:1rem 0; }
 .prayer-body h3 { font-family:var(--font-body); font-size:.72em; font-weight:800; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); margin:2rem 0 .65rem; }
@@ -155,6 +155,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .prayer-body tr:hover td { background:var(--accent-l); }
 .prayer-body td:nth-child(2) { font-style:italic; color:var(--accent); }
 .prayer-body > p:first-of-type::first-letter { font-family:var(--font-serif); font-size:4em; font-weight:700; line-height:.75; float:left; margin:.05em .14em 0 0; color:var(--accent); }
+.prayer-body > *:first-child { margin-top:0; }
 
 @media (max-width:560px) {
   /* Litanie: da tabella a colonne impilate leggibili anche su schermi stretti */
@@ -172,7 +173,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .breadcrumb-current { color:var(--text-muted); font-weight:700; }
 
 /* ─ Prayer header (title + actions) ──────────────────────── */
-.prayer-header { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.prayer-header { display:flex; align-items:flex-start; justify-content:space-between; gap:.6rem; flex-wrap:wrap; }
 .prayer-header-main { flex:1 1 240px; min-width:0; }
 .prayer-title { text-align:left; font-size:clamp(1.3rem,4vw,1.75rem); font-weight:700; letter-spacing:-.01em; }
 .prayer-actions { display:flex; gap:.4rem; align-items:center; padding-top:.5rem; flex-wrap:wrap; flex-shrink:0; }
@@ -185,6 +186,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 
 @media (max-width:480px) {
   .prayer-header { flex-direction:column; }
+  .prayer-header-main { flex-basis:auto; }
   .prayer-actions { padding-top:0; width:100%; }
 }
 
@@ -232,7 +234,9 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .fav-btn:hover { transform:scale(1.2); color:#EF4444; }
 .fav-btn.active { color:#EF4444; animation:heartBeat .5s cubic-bezier(.34,1.56,.64,1); }
 .fav-btn.is-loading { opacity:.35; pointer-events:none; }
-.share-btn, .print-btn { display:none; align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:color .18s,transform .18s; }
+.share-btn, .print-btn { align-items:center; justify-content:center; background:none; border:none; cursor:pointer; padding:.35rem; border-radius:8px; color:var(--text-subtle); transition:color .18s,transform .18s; }
+.print-btn { display:flex; }
+.share-btn { display:none; }
 .share-btn:hover, .print-btn:hover { color:var(--accent); transform:scale(1.15); }
 
 /* ─ Prayed-today button ──────────────────────────────────── */
@@ -364,7 +368,7 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
   .page-wrap { padding:1.4rem .75rem 4rem; }
   .hero { padding:1rem 0 2rem; }
   .hero-heading { font-size:clamp(2rem,10vw,3rem); }
-  .prayer-body { padding:1.6rem 1.4rem 3rem; max-width:100%; }
+  .prayer-body { padding:1.2rem 1.4rem 3rem; max-width:100%; }
   .auth-card { padding:1.8rem 1.4rem; }
   .back-link { margin-bottom:1rem; }
 }
