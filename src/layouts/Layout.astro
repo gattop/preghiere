@@ -85,24 +85,6 @@ const currentPath = Astro.url.pathname
             <a href="/rosario" class={`nav-link ${currentPath === '/rosario' ? 'active' : ''}`}>Rosario</a>
             <a href="/vangelo" class={`nav-link ${currentPath.startsWith('/vangelo') ? 'active' : ''}`}>Vangelo</a>
             <a href="/bibbia"  class={`nav-link ${currentPath.startsWith('/bibbia') ? 'active' : ''}`}>Bibbia</a>
-
-            <!-- Auth-dependent links — shown/hidden via client script -->
-            <span id="auth-links" style="display:none">
-              <a href="/preferiti" class={`nav-link ${currentPath.startsWith('/preferiti') ? 'active' : ''}`}>Preferiti</a>
-              <a href="/proposta"  class={`nav-link ${currentPath.startsWith('/proposta') ? 'active' : ''}`}>Proponi</a>
-              <span id="admin-link" style="display:none">
-                <a href="/admin" class={`nav-link ${currentPath.startsWith('/admin') ? 'active' : ''}`}>Admin</a>
-              </span>
-            </span>
-
-            <span id="user-links" style="display:none">
-              <a href="/profilo" class={`nav-link ${currentPath.startsWith('/profilo') ? 'active' : ''}`}>Profilo</a>
-              <button type="button" class="nav-link" id="sign-out-btn">Esci</button>
-            </span>
-
-            <span id="login-link">
-              <a href="/accedi" class="nav-link nav-link-pill">Accedi</a>
-            </span>
           </div>
         </nav>
       </div>
@@ -113,7 +95,7 @@ const currentPath = Astro.url.pathname
     </main>
 
     <footer class="site-footer">
-      <p>Web App Cattolica by <a href="https://gattp.it" target="_blank" rel="noopener noreferrer">Tommaso Martarelli</a></p>
+      <p>Web App Cattolica by <a href="https://bsky.app/profile/kyrie.tngl.sh" target="_blank" rel="noopener noreferrer">kyrie</a></p>
     </footer>
   </body>
 </html>
@@ -143,30 +125,6 @@ const currentPath = Astro.url.pathname
 
   document.addEventListener('click', (e) => {
     if (nav.classList.contains('open') && !nav.contains(e.target as Node) && e.target !== toggle) closeNav()
-  })
-
-  // ─ Auth nav state ─────────────────────────────────────────
-  import { supabase } from '../lib/supabase'
-  const { data: { session } } = await supabase.auth.getSession()
-  if (session) {
-    const authLinks  = document.getElementById('auth-links')
-    const userLinks  = document.getElementById('user-links')
-    const loginLink  = document.getElementById('login-link')
-    if (authLinks) authLinks.style.display = 'contents'
-    if (userLinks) userLinks.style.display = 'contents'
-    if (loginLink) loginLink.style.display = 'none'
-
-    // Show admin link if admin
-    const { data: profile } = await supabase.from('profiles').select('is_admin').eq('id', session.user.id).single()
-    if (profile?.is_admin) {
-      const adminLink = document.getElementById('admin-link')
-      if (adminLink) adminLink.style.display = 'inline'
-    }
-  }
-
-  document.getElementById('sign-out-btn')?.addEventListener('click', async () => {
-    await supabase.auth.signOut()
-    window.location.href = '/'
   })
 
   // ─ Service Worker registration (solo in produzione: evita cache stantia in dev) ──

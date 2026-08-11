@@ -19,16 +19,13 @@ Costruita con [Astro](https://astro.build) per essere veloce, leggera e piacevol
   - Sacro Cuore di Gesù
   - Santi
   - Credo
-- ⭐ **Preferiti** — salva le tue preghiere preferite per ritrovarle rapidamente
-- 👤 **Area utente** — accesso e profilo personale
-- 🛠️ **Area admin** — gestione dei contenuti
-- 💡 **Proponi una preghiera** — gli utenti possono suggerire nuove preghiere da aggiungere alla raccolta
-- ⚡ **Veloce e leggero** — grazie all'architettura a isole di Astro, il sito carica solo il JS strettamente necessario
+- 💬 **Vangelo del giorno via WhatsApp** — scrivi "vangelo oggi" al numero +39 375 112 2880
+- ⚡ **Veloce e leggero** — grazie all'architettura a isole di Astro, il sito carica solo il JS strettamente necessario, senza alcun backend/account richiesto
 
 ## 🛠️ Tecnologie
 
 - [Astro](https://astro.build) — framework principale
-- Sistema di autenticazione utenti
+- Sito interamente statico, nessun account utente/backend
 - HTML / CSS / JavaScript
 
 ## 📦 Installazione
@@ -77,12 +74,7 @@ npm run preview
 │   │   ├── rosario/
 │   │   ├── vangelo/
 │   │   ├── bibbia/
-│   │   ├── cartella/    # categorie di preghiere
-│   │   ├── preferiti/
-│   │   ├── proposta/
-│   │   ├── admin/
-│   │   ├── profilo/
-│   │   └── accedi/
+│   │   └── cartella/    # categorie di preghiere
 │   └── content/     # contenuti (preghiere, letture, ecc.)
 ├── astro.config.mjs
 └── package.json
@@ -100,8 +92,6 @@ I contributi sono benvenuti! Se vuoi aggiungere una preghiera, correggere un tes
 4. Fai push sul branch (`git push origin feature/nome-feature`)
 5. Apri una Pull Request
 
-In alternativa, puoi proporre direttamente una nuova preghiera tramite la [pagina Proponi](https://spadadellospirito.org/proposta) sul sito stesso.
-
 ## 📄 Licenza
 
 Questo progetto è distribuito sotto licenza **[GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE)**.
@@ -114,5 +104,5 @@ Un piccolo strumento pensato per accompagnare la preghiera quotidiana, a gloria 
 
 ---
 
-Web App Cattolica by [Tommaso Martarelli](https://gattp.it)
+Web App Cattolica by [kyrie](https://bsky.app/profile/kyrie.tngl.sh)
 (readme AI generated)

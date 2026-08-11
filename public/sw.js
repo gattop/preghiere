@@ -1,4 +1,4 @@
-const CACHE_NAME = 'spada-v3'
+const CACHE_NAME = 'spada-v4'
 
 const PRECACHE_URLS = [
   '/',
@@ -45,15 +45,7 @@ self.addEventListener('fetch', (event) => {
   // Skip chrome-extension and non-http(s) schemes
   if (!url.protocol.startsWith('http')) return
 
-  // Network-first for Supabase API calls
-  if (url.hostname.includes('supabase.co')) {
-    event.respondWith(
-      fetch(request).catch(() => caches.match(request))
-    )
-    return
-  }
-
-  // Skip cross-origin requests other than Supabase
+  // Skip cross-origin requests (RSS/calendar proxies go through same-origin /api/*)
   if (url.origin !== self.location.origin) return
 
   // Cache-first for static assets (images, fonts, CSS, JS)

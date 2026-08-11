@@ -10,9 +10,6 @@ export default defineConfig({
   ],
   output: 'static',
   vite: {
-    // Expose both PUBLIC_* and VITE_* env vars to the client
-    // VITE_* is the naming convention used in .env.local
-    envPrefix: ['PUBLIC_', 'VITE_'],
     server: {
       proxy: {
         // Mirror the Vercel rewrite so /api/rss works in local dev
