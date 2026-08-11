@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import Layout from '../layouts/Layout.astro'
 import { TOP_LEVEL_FOLDERS, FOLDERS } from '../data/folders'
 import CalendarioLiturgico from '../components/CalendarioLiturgico'
+import Icon from '../components/Icon.astro'
 
 const allPrayers = await getCollection('prayers')
 
@@ -41,9 +42,9 @@ function countInFolder(folderId: string) {
       <span class="accent-word">prova di ciò che non si vede.</span>
     </h1>
     <div class="hero-btns" style="margin-top:1.2rem">
-      <a href="/rosario"  class="btn btn-primary">🕊️ Santo Rosario</a>
-      <a href="/vangelo"  class="btn btn-light">📖 Vangelo del giorno</a>
-      <a href="/bibbia"   class="btn btn-light">📜 Bibbia CEI</a>
+      <a href="/rosario"  class="btn btn-primary">Santo Rosario</a>
+      <a href="/vangelo"  class="btn btn-light">Vangelo del giorno</a>
+      <a href="/bibbia"   class="btn btn-light">Bibbia CEI</a>
     </div>
   </div>
 
@@ -55,8 +56,8 @@ function countInFolder(folderId: string) {
       const meta = FOLDERS[id]
       const count = countInFolder(id)
       return (
-        <a href={`/cartella/${id}`} class="home-card" data-title={meta?.title ?? id} style={`animation-delay:${i * 0.07}s${meta?.color ? `;--card-accent:${meta.color}` : ''}`}>
-          <span class="home-card-icon">{meta?.icon ?? '🙏'}</span>
+        <a href={`/cartella/${id}`} class="home-card" data-title={meta?.title ?? id} style={`animation-delay:${i * 0.05}s${meta?.color ? `;--card-accent:${meta.color}` : ''}`}>
+          <span class="home-card-icon"><Icon name={(meta?.icon as any) ?? 'cross'} /></span>
           <span class="home-card-title">{meta?.title ?? id}</span>
           <span class="home-card-count">{count} {count === 1 ? 'preghiera' : 'preghiere'}</span>
         </a>

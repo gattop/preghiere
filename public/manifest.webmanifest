@@ -4,8 +4,8 @@
   "description": "Raccolta di preghiere cattoliche: rosario, vangelo del giorno e preghiere tradizionali.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f0d1a",
-  "theme_color": "#9B8DF8",
+  "background_color": "#F7F3EA",
+  "theme_color": "#7A2E2E",
   "orientation": "portrait-primary",
   "lang": "it",
   "icons": [
