@@ -400,3 +400,84 @@ hr { border:none; height:1px; background:var(--border-soft); margin:2rem 0; }
 .vangelo-body  { font-size:1.02em; line-height:1.9; color:var(--text-muted); }
 .vangelo-link  { display:inline-block; margin-top:1.4rem; font-size:.82rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--accent); text-decoration:none; }
 .vangelo-link:hover { text-decoration:underline; }
+
+/* ─────────────────────────────────────────────────────────────
+   Liquid-glass restyle: overrides tokens + adds backdrop-filter
+   to the existing classes above — no markup changes required.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --card: rgba(255,255,255,.55);
+  --card-soft: rgba(255,255,255,.4);
+  --card-hover: rgba(255,255,255,.68);
+  --border: rgba(255,255,255,.55);
+  --border-soft: rgba(255,255,255,.4);
+  --radius: 18px;
+  --radius-lg: 24px;
+  --radius-pill: 16px;
+  --shadow-xs: 0 6px 20px rgba(34,29,22,.06);
+  --shadow-sm: 0 10px 30px rgba(34,29,22,.08);
+  --shadow:    0 16px 44px rgba(34,29,22,.12);
+}
+
+body{
+  background:
+    radial-gradient(700px 500px at 10% -10%, rgba(122,46,46,.10), transparent 60%),
+    radial-gradient(650px 500px at 100% 0%, rgba(180,83,9,.10), transparent 55%),
+    radial-gradient(700px 600px at 30% 100%, rgba(59,110,145,.10), transparent 55%),
+    linear-gradient(160deg,#fdf6ec 0%,#f3f2ee 50%,#f8eef0 100%) fixed !important;
+}
+
+.site-header{
+  background: rgba(247,243,234,.55) !important;
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+}
+
+.home-card, .cal-card, .list-item, .prayer-body, .vangelo-card, .bible-results-card,
+.rosario-text, .mistero-card, .decina-card, .prayer-sibling-link, .dialog{
+  background: var(--card) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-color: var(--border) !important;
+}
+
+.bible-versetto-row, .rosario-nav{
+  background: rgba(255,255,255,.4) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.bible-input, .input{
+  background: rgba(255,255,255,.55) !important;
+  backdrop-filter: blur(14px) saturate(180%);
+  border-color: var(--border) !important;
+}
+
+/* Primary/accent actions: translucent tinted glass instead of a flat fill */
+.btn-primary, .nav-link-pill, .rosario-btn-next, .rosario-btn-end, .bible-results-header{
+  background: rgba(122,46,46,.72) !important;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 10px 26px rgba(122,46,46,.28);
+}
+.btn-primary:hover, .nav-link-pill:hover{ background: rgba(92,32,32,.8) !important; }
+
+.btn-danger{
+  background: rgba(138,46,34,.72) !important;
+  backdrop-filter: blur(14px) saturate(180%);
+}
+
+@media (prefers-color-scheme: dark){
+  body{
+    background:
+      radial-gradient(700px 500px at 10% -10%, rgba(201,124,107,.12), transparent 60%),
+      radial-gradient(700px 600px at 100% 100%, rgba(0,0,0,.35), transparent 60%),
+      linear-gradient(160deg,#17140F 0%,#1c1811 100%) fixed !important;
+  }
+  :root{
+    --card: rgba(33,28,21,.55);
+    --card-soft: rgba(33,28,21,.4);
+    --border: rgba(237,230,217,.16);
+  }
+  .site-header{ background: rgba(23,20,15,.5) !important; }
+}
